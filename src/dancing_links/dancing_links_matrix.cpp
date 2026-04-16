@@ -1,42 +1,44 @@
 #include "dancing_links/dancing_links_matrix.h"
+#include <iostream>
 
-// Определения структур 
-struct DancingLinksMatrix::ColumnNode {
-    ColumnNode* left, * right;
-    DataNode* up, * down;
+// ============================================================================
+// Определения структур
+// ============================================================================
+
+struct DancingLinksMatrix::Node {
+    Node* left, * right, * up, * down;
+    Node* column;
     int size;
-    int col_index;
+    int id;
 
-    ColumnNode(int idx)
-        : left(this), right(this), up(nullptr), down(nullptr), size(0), col_index(idx) {}
+    // Конструктор для заголовка столбца
+    explicit Node(int col_index)
+        : left(this), right(this), up(this), down(this)
+        , column(this), size(0), id(col_index) {}
 
-    ~ColumnNode() = default;
+    // Конструктор для обычного узла
+    Node(int row_id, Node* col_header)
+        : left(this), right(this), up(this), down(this)
+        , column(col_header), size(-1), id(row_id) {}
+
+    bool isHeader() const { return column == this; }
 };
 
-struct DancingLinksMatrix::DataNode {
-    
-    DataNode* left, * right, * up, * down;
-    ColumnNode* column;
-    int row_id;
+// ============================================================================
+// Реализация методов класса
+// ============================================================================
 
-    DataNode(int row)
-        : left(this), right(this), up(this), down(this), column(nullptr), row_id(row) {}
-
-    ~DataNode() = default;
-};
-
-// Теперь определения методов класса
 DancingLinksMatrix::DancingLinksMatrix(int num_columns) {
-    
-    root = new ColumnNode(-1);  // -1 означает "не столбец, а корень"
+    root = new Node(-1);
+    root->column = nullptr;  // корень не является заголовком
 
-    // Создаём заголовки столбцов
-    ColumnNode* prev = root;
-    for (int i = 0; i != num_columns; ++i) {
-        ColumnNode* col = new ColumnNode(i);
-        columns.push_back(col);
+    columns.reserve(num_columns);
 
-        // Вставляем в горизонтальный список справа от prev
+    Node* prev = root;
+    for (int i = 0; i < num_columns; ++i) {
+        Node* col = new Node(i);
+        columns.emplace_back(col);
+
         col->left = prev;
         col->right = prev->right;
         prev->right->left = col;
@@ -46,6 +48,32 @@ DancingLinksMatrix::DancingLinksMatrix(int num_columns) {
     }
 }
 
+void DancingLinksMatrix::cleanup() {
+    // 1. Удаляем все обычные узлы (обходим каждый столбец)
+    Node* col = root->right;
+    while (col != root) {
+        Node* node = col->down;
+        while (node != col) {
+            Node* to_delete = node;
+            node = node->down;  // сохраняем следующий перед удалением
+            delete to_delete;
+        }
+        col = col->right;
+    }
+
+    // 2. Удаляем все заголовки столбцов
+    Node* cur = root->right;
+    while (cur != root) {
+        Node* to_delete = cur;
+        cur = cur->right;  // сохраняем следующий перед удалением
+        delete to_delete;
+    }
+
+    // 3. Удаляем корень
+    delete root;
+    root = nullptr;
+}
+
 DancingLinksMatrix::~DancingLinksMatrix() {
     cleanup();
 }
@@ -53,41 +81,56 @@ DancingLinksMatrix::~DancingLinksMatrix() {
 void DancingLinksMatrix::addRow(const std::vector<int>& col_indices, int row_id) {
     if (col_indices.empty()) return;
 
-    // Создаём узлы для каждого столбца в этой строке
-    std::vector<DataNode*> nodes;
+    std::vector<Node*> nodes;
+    nodes.reserve(col_indices.size());
+
     for (int col_idx : col_indices) {
-        ColumnNode* col = columns[col_idx];
-        DataNode* node = new DataNode(row_id);
-        node->column = col;
-        nodes.push_back(node);
-        all_nodes.push_back(node);
+        Node* col = columns[col_idx];
+        Node* node = new Node(row_id, col);
+        nodes.emplace_back(node);
 
-        // Увеличиваем счётчик в столбце
-        ++col->size;
-
-        // Вставляем вертикально (в конец столбца)
         node->up = col->up;
         node->down = col;
         col->up->down = node;
         col->up = node;
+
+        ++col->size;
+    }
+
+    for (size_t i = 0; i < nodes.size(); ++i) {
+        Node* left = nodes[i];
+        Node* right = nodes[(i + 1) % nodes.size()];
+        left->right = right;
+        right->left = left;
+    }
 }
 
-void DancingLinksMatrix::cleanup() {
-    
-    // Удаляем все DataNode
-    for (DataNode* node : all_nodes) {
-        if(node) 
-            delete node;
-    }
-    all_nodes.clear();
+void DancingLinksMatrix::print() const {
+    std::cout << "=== Dancing Links Matrix ===\n";
+    std::cout << "Columns (index:size): ";
 
-    // Удаляем все ColumnNode
-    for (ColumnNode* col : columns) {
-        if(col)
-            delete col;
+    Node* col = root->right;
+    while (col != root) {
+        std::cout << col->id << ":" << col->size << " ";
+        col = col->right;
     }
-    columns.clear();
+    std::cout << "\n\n";
 
-    delete root;
-    root = nullptr;
+    col = root->right;
+    while (col != root) {
+        std::cout << "Column " << col->id << " (size=" << col->size << "): ";
+        Node* node = col->down;
+        if (node == col) {
+            std::cout << "(empty)";
+        }
+        else {
+            while (node != col) {
+                std::cout << "row" << node->id << " ";
+                node = node->down;
+            }
+        }
+        std::cout << "\n";
+        col = col->right;
+    }
+    std::cout << "===========================\n" << std::endl;
 }
