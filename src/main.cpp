@@ -9,39 +9,25 @@
 int main() {
     setlocale(LC_ALL, "russian");
 
-    std::cout << "=== Тест cover/uncover ===\n\n";
-
     DancingLinksMatrix matrix(4);
     matrix.addRow({ 0, 2 }, 1);
     matrix.addRow({ 1, 3 }, 2);
     matrix.addRow({ 0, 3 }, 3);
 
-    std::cout << "Исходная матрица:\n";
+    std::cout << "Initial matrix:\n";
     matrix.print();
 
-    // Покрываем столбец 1
-    auto col1 = matrix.getColumn(1);
-    std::cout << "После cover(столбец 1):\n";
-    matrix.cover(col1);
-    matrix.print();
+    std::vector<int> solution;
+    bool found = matrix.search(solution);
 
-    // Покрываем столбец 0
-    auto col0 = matrix.getColumn(0);
-    std::cout << "После cover(столбец 0):\n";
-    matrix.cover(col0);
-    matrix.print();
-
-    // Восстанавливаем в обратном порядке
-    std::cout << "После uncover(столбец 0):\n";
-    matrix.uncover(col0);
-    matrix.print();
-
-    std::cout << "После uncover(столбец 1):\n";
-    matrix.uncover(col1);
-    matrix.print();
-
-    std::cout << "=== Тест пройден ===\n";
-
+    if (found) {
+        std::cout << "Solution found: rows ";
+        for (int r : solution) std::cout << r << " ";
+        std::cout << "\n";
+    }
+    else {
+        std::cout << "No solution\n";
+    }
     
     // Матрица 3x4 из примера:
     //     C0 C1 C2 C3

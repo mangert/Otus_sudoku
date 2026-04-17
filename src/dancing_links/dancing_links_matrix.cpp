@@ -1,9 +1,9 @@
-#include "dancing_links/dancing_links_matrix.h"
+п»ї#include "dancing_links/dancing_links_matrix.h"
 #include <cassert>
 #include <iostream>
 
 // ============================================================================
-// Определения структур
+// РћРїСЂРµРґРµР»РµРЅРёСЏ СЃС‚СЂСѓРєС‚СѓСЂ
 // ============================================================================
 
 struct DancingLinksMatrix::Node {
@@ -12,12 +12,12 @@ struct DancingLinksMatrix::Node {
     int size;
     int id;
 
-    // Конструктор для заголовка столбца
+    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ Р·Р°РіРѕР»РѕРІРєР° СЃС‚РѕР»Р±С†Р°
     explicit Node(int col_index)
         : left(this), right(this), up(this), down(this)
         , column(this), size(0), id(col_index) {}
 
-    // Конструктор для обычного узла
+    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ РѕР±С‹С‡РЅРѕРіРѕ СѓР·Р»Р°
     Node(int row_id, Node* col_header)
         : left(this), right(this), up(this), down(this)
         , column(col_header), size(-1), id(row_id) {}
@@ -26,13 +26,13 @@ struct DancingLinksMatrix::Node {
 };
 
 // ============================================================================
-// Реализация методов класса
+// Р РµР°Р»РёР·Р°С†РёСЏ РјРµС‚РѕРґРѕРІ РєР»Р°СЃСЃР°
 // ============================================================================
 
 DancingLinksMatrix::DancingLinksMatrix(int num_columns) {
     
     root = new Node(-1);
-    root->column = nullptr;  // корень не является заголовком
+    root->column = nullptr;  // РєРѕСЂРµРЅСЊ РЅРµ СЏРІР»СЏРµС‚СЃСЏ Р·Р°РіРѕР»РѕРІРєРѕРј
 
     columns.reserve(num_columns);
 
@@ -52,33 +52,33 @@ DancingLinksMatrix::DancingLinksMatrix(int num_columns) {
 
 void DancingLinksMatrix::cleanup() {
     
-    if (!cover_stack.empty()) {
+    if (!isFullyUncovered()) {
         std::cerr << "Warning: cleaning up with " << cover_stack.size()
             << " uncovered columns. Forcing rollback.\n";
         rollbackAll();
     }
     
-    // 1. Удаляем все обычные узлы (обходим каждый столбец)
+    // 1. РЈРґР°Р»СЏРµРј РІСЃРµ РѕР±С‹С‡РЅС‹Рµ СѓР·Р»С‹ (РѕР±С…РѕРґРёРј РєР°Р¶РґС‹Р№ СЃС‚РѕР»Р±РµС†)
     Node* col = root->right;
     while (col != root) {
         Node* node = col->down;
         while (node != col) {
             Node* to_delete = node;
-            node = node->down;  // сохраняем следующий перед удалением
+            node = node->down;  // СЃРѕС…СЂР°РЅСЏРµРј СЃР»РµРґСѓСЋС‰РёР№ РїРµСЂРµРґ СѓРґР°Р»РµРЅРёРµРј
             delete to_delete;
         }
         col = col->right;
     }
 
-    // 2. Удаляем все заголовки столбцов
+    // 2. РЈРґР°Р»СЏРµРј РІСЃРµ Р·Р°РіРѕР»РѕРІРєРё СЃС‚РѕР»Р±С†РѕРІ
     Node* cur = root->right;
     while (cur != root) {
         Node* to_delete = cur;
-        cur = cur->right;  // сохраняем следующий перед удалением
+        cur = cur->right;  // СЃРѕС…СЂР°РЅСЏРµРј СЃР»РµРґСѓСЋС‰РёР№ РїРµСЂРµРґ СѓРґР°Р»РµРЅРёРµРј
         delete to_delete;
     }
 
-    // 3. Удаляем корень
+    // 3. РЈРґР°Р»СЏРµРј РєРѕСЂРµРЅСЊ
     delete root;
     root = nullptr;
 }
@@ -86,6 +86,7 @@ void DancingLinksMatrix::cleanup() {
 DancingLinksMatrix::~DancingLinksMatrix() {
     cleanup();
 }
+
 
 void DancingLinksMatrix::addRow(const std::vector<int>& col_indices, int row_id) {
     if (col_indices.empty()) return;
@@ -114,43 +115,52 @@ void DancingLinksMatrix::addRow(const std::vector<int>& col_indices, int row_id)
     }
 }
 
+void DancingLinksMatrix::cover(int col_idx) {        
+    cover(getColumn(col_idx));
+}
+
 void DancingLinksMatrix::cover(Node* col) {
 
+#ifdef DEBUG
     assert(col != nullptr && "cover: col is nullptr");
     assert(col->isHeader() && "cover: col is not a header");
-    assert(std::find(cover_stack.begin(), cover_stack.end(), col) == cover_stack.end()
-        && "cover: column already covered");    
+    assert(!isCovered(col) && "cover: column already covered");    
+#endif // DEBUG
 
-    // Добавляем в стек
-    cover_stack.emplace_back(col);
-    // 1. Удаляем столбец из горизонтального списка заголовков
+    // Р”РѕР±Р°РІР»СЏРµРј РІ СЃС‚РµРє
+    cover_stack.push(col);
+    // 1. РЈРґР°Р»СЏРµРј СЃС‚РѕР»Р±РµС† РёР· РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРіРѕ СЃРїРёСЃРєР° Р·Р°РіРѕР»РѕРІРєРѕРІ
     col->right->left = col->left;
-    col->left->right = col->right;
-
-    // 2. Обходим все строки в этом столбце
+    col->left->right = col->right;    
+    // 2. РћР±С…РѕРґРёРј РІСЃРµ СЃС‚СЂРѕРєРё РІ СЌС‚РѕРј СЃС‚РѕР»Р±С†Рµ
     for (Node* i = col->down; i != col; i = i->down) {
-        // 3. Для каждой строки обходим все её узлы
+        // 3. Р”Р»СЏ РєР°Р¶РґРѕР№ СЃС‚СЂРѕРєРё РѕР±С…РѕРґРёРј РІСЃРµ РµС‘ СѓР·Р»С‹
         for (Node* j = i->right; j != i; j = j->right) {
-            // 4. Удаляем узел j из его столбца
+            // 4. РЈРґР°Р»СЏРµРј СѓР·РµР» j РёР· РµРіРѕ СЃС‚РѕР»Р±С†Р°
             j->down->up = j->up;
             j->up->down = j->down;
-            // Уменьшаем счётчик в столбце j
+            // РЈРјРµРЅСЊС€Р°РµРј СЃС‡С‘С‚С‡РёРє РІ СЃС‚РѕР»Р±С†Рµ j
             --j->column->size;
         }
     }
 }
 
+void DancingLinksMatrix::uncover(int col_idx) {
+    uncover(getColumn(col_idx));
+}
+
 void DancingLinksMatrix::uncover(Node* col) {
-    
+
+#ifdef DEBUG
     assert(col != nullptr && "uncover: col is nullptr");
     assert(!cover_stack.empty() && "uncover: no columns to uncover");
-    assert(cover_stack.back() == col && "uncover: column order mismatch (LIFO required)");
-    
+    assert(cover_stack.top() == col && "uncover: column order mismatch (LIFO required)");
+#endif // DEBUG    
 
-    // Убираем из стека
-    cover_stack.pop_back();
+    // РЈР±РёСЂР°РµРј РёР· СЃС‚РµРєР°
+    cover_stack.pop();
     
-    // Обход в обратном порядке (снизу вверх, справа налево)
+    // РћР±С…РѕРґ РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ (СЃРЅРёР·Сѓ РІРІРµСЂС…, СЃРїСЂР°РІР° РЅР°Р»РµРІРѕ)
     for (Node* i = col->up; i != col; i = i->up) {
         for (Node* j = i->left; j != i; j = j->left) {
             ++j->column->size;
@@ -160,18 +170,70 @@ void DancingLinksMatrix::uncover(Node* col) {
     }
     col->right->left = col;
     col->left->right = col;
-
-
 }
-#ifdef DEBUG
+
 DancingLinksMatrix::Node* DancingLinksMatrix::getColumn(int idx) const { 
+#ifdef DEBUG
+    assert(idx >= 0 && idx < static_cast<int>(columns.size()));
+#endif // DEBUG    
+    
     return columns[idx]; 
+}
+
+bool DancingLinksMatrix::search(std::vector<int>& solution) {
+    if (root->right == root) {
+        return true;
+    }
+
+    Node* col = chooseColumn();
+    if (col == nullptr || col->size == 0) {
+        return false;
+    }
+
+    // РџРѕРєСЂС‹РІР°РµРј РІС‹Р±СЂР°РЅРЅС‹Р№ СЃС‚РѕР»Р±РµС†
+    cover(col->id);  
+
+    for (Node* row = col->down; row != col; row = row->down) {
+        solution.push_back(row->id);
+
+        // РџРѕРєСЂС‹РІР°РµРј РѕСЃС‚Р°Р»СЊРЅС‹Рµ СЃС‚РѕР»Р±С†С‹ СЌС‚РѕР№ СЃС‚СЂРѕРєРё
+        for (Node* j = row->right; j != row; j = j->right) {
+            cover(j->column->id);
+        }
+
+        if (search(solution)) {
+            return true;
+        }
+
+        // РћС‚РєР°С‚: РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј РѕСЃС‚Р°Р»СЊРЅС‹Рµ СЃС‚РѕР»Р±С†С‹
+        for (Node* j = row->left; j != row; j = j->left) {
+            uncover(j->column->id);
+        }
+
+        solution.pop_back();
+    }
+
+    // Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј РІС‹Р±СЂР°РЅРЅС‹Р№ СЃС‚РѕР»Р±РµС†
+    uncover(col->id);  
+
+    return false;
+}
+
+bool DancingLinksMatrix::isCovered(int col_idx) const {
+    if (col_idx < 0 || col_idx >= static_cast<int>(columns.size())) {
+        return false;
+    }
+    return isCovered(columns[col_idx]);
+}
+
+bool DancingLinksMatrix::isCovered(Node* col) const {
+    return col->left->right != col;
 }
 
 void DancingLinksMatrix::rollbackAll() {
     
     while (!cover_stack.empty()) {
-        uncover(cover_stack.back());
+        uncover(cover_stack.top());
     }
 }
 
@@ -179,6 +241,28 @@ bool DancingLinksMatrix::isFullyUncovered() const {
     return cover_stack.empty();
 };
 
+int DancingLinksMatrix::getNumColumns() const { 
+    return static_cast<int>(columns.size()); 
+}
+
+DancingLinksMatrix::Node* DancingLinksMatrix::chooseColumn() const {
+    Node* col = nullptr;
+    int min_size = std::numeric_limits<int>::max();
+
+    std::cout << "Active columns: ";
+    for (Node* c = root->right; c != root; c = c->right) {
+        std::cout << c->id << "(" << c->size << ") ";
+        if (c->size < min_size) {
+            min_size = c->size;
+            col = c;
+        }
+    }
+    std::cout << "\n";
+
+    return col;
+}
+
+#ifdef DEBUG
 void DancingLinksMatrix::print() const {
     std::cout << "=== Dancing Links Matrix ===\n";
     std::cout << "Columns (index:size): ";
@@ -207,16 +291,7 @@ void DancingLinksMatrix::print() const {
         col = col->right;
     }
 
-    // Показываем состояние стека
-    if (!cover_stack.empty()) {
-        std::cout << "\nCover stack (top last): ";
-        for (Node* c : cover_stack) {
-            std::cout << c->id << " ";
-        }
-        std::cout << "\n";
-    }
-
     std::cout << "===========================\n" << std::endl;
-}
+};
 #endif // DEBUG
 
