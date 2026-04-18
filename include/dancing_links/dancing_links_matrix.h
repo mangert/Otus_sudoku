@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <stack>
+#include <optional>
 
 class DancingLinksMatrix {
 private:
@@ -21,33 +22,36 @@ public:
     void cover(int col_idx);
     void uncover(int col_idx);
 
-    bool DancingLinksMatrix::search(std::vector<int>& solution);
+    std::optional<std::vector<int>> search(int expected_solution_size = 0);
     
+    // Проверка состояния    
     bool isCovered(int col_idx) const;
-    int getNumColumns() const;
+    bool isFullyUncovered() const;
+    int countColumns() const;
 
 #ifdef DEBUG        
     void print() const;
 #endif // DEBUG
 
 private:
-
-    Node* root;
-    std::vector<Node*> columns;
-    std::stack<Node*> cover_stack;  // стек вызовов cover (для проверки порядка)
-
+    
     void cover(Node* col);
-    void uncover(Node* col);    
+    void uncover(Node* col);
+    bool search_recursive(std::vector<int>& solution);
 
     // Откат всех cover (для cleanup)
     void rollbackAll();
 
     Node* getColumn(int idx) const;
-    // Проверка состояния
-    bool isFullyUncovered() const;
+    // Проверка состояния    
     bool isCovered(Node* col) const;
     // Полная очистка
     void cleanup();
 
     Node* chooseColumn() const;
+
+    Node* root;
+    std::vector<Node*> columns;
+    std::stack<Node*> cover_stack;  // стек вызовов cover (для проверки порядка)
+    
 };

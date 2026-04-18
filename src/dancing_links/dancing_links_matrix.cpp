@@ -2,6 +2,7 @@
 #include <cassert>
 #include <iostream>
 
+
 // ============================================================================
 // Определения структур
 // ============================================================================
@@ -180,7 +181,19 @@ DancingLinksMatrix::Node* DancingLinksMatrix::getColumn(int idx) const {
     return columns[idx]; 
 }
 
-bool DancingLinksMatrix::search(std::vector<int>& solution) {
+std::optional<std::vector<int>> DancingLinksMatrix::search(int expected_solution_size) {
+    std::vector<int> solution;
+    if (expected_solution_size > 0) {
+        solution.reserve(expected_solution_size);
+    }
+
+    if (search_recursive(solution)) {
+        return solution;
+    }
+    return std::nullopt;
+}
+
+bool DancingLinksMatrix::search_recursive(std::vector<int>& solution) {
     if (root->right == root) {
         return true;
     }
@@ -201,7 +214,7 @@ bool DancingLinksMatrix::search(std::vector<int>& solution) {
             cover(j->column->id);
         }
 
-        if (search(solution)) {
+        if (search_recursive(solution)) {
             return true;
         }
 
@@ -241,7 +254,7 @@ bool DancingLinksMatrix::isFullyUncovered() const {
     return cover_stack.empty();
 };
 
-int DancingLinksMatrix::getNumColumns() const { 
+int DancingLinksMatrix::countColumns() const { 
     return static_cast<int>(columns.size()); 
 }
 
