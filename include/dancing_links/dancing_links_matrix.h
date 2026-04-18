@@ -5,7 +5,7 @@
 #include <stack>
 #include <optional>
 
-class DancingLinksMatrix {
+class DancingLinksMatrix final {
 private:
     // Forward declarations
     struct Node;

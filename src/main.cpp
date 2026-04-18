@@ -18,16 +18,7 @@ int main() {
     matrix.print();
 
     std::vector<int> solution;
-    bool found = matrix.search(solution);
-
-    if (found) {
-        std::cout << "Solution found: rows ";
-        for (int r : solution) std::cout << r << " ";
-        std::cout << "\n";
-    }
-    else {
-        std::cout << "No solution\n";
-    }
+    
     
     // Матрица 3x4 из примера:
     //     C0 C1 C2 C3

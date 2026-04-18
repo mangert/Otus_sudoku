@@ -51,39 +51,6 @@ DancingLinksMatrix::DancingLinksMatrix(int num_columns) {
     }
 }
 
-void DancingLinksMatrix::cleanup() {
-    
-    if (!isFullyUncovered()) {
-        std::cerr << "Warning: cleaning up with " << cover_stack.size()
-            << " uncovered columns. Forcing rollback.\n";
-        rollbackAll();
-    }
-    
-    // 1. Удаляем все обычные узлы (обходим каждый столбец)
-    Node* col = root->right;
-    while (col != root) {
-        Node* node = col->down;
-        while (node != col) {
-            Node* to_delete = node;
-            node = node->down;  // сохраняем следующий перед удалением
-            delete to_delete;
-        }
-        col = col->right;
-    }
-
-    // 2. Удаляем все заголовки столбцов
-    Node* cur = root->right;
-    while (cur != root) {
-        Node* to_delete = cur;
-        cur = cur->right;  // сохраняем следующий перед удалением
-        delete to_delete;
-    }
-
-    // 3. Удаляем корень
-    delete root;
-    root = nullptr;
-}
-
 DancingLinksMatrix::~DancingLinksMatrix() {
     cleanup();
 }
@@ -261,18 +228,46 @@ int DancingLinksMatrix::countColumns() const {
 DancingLinksMatrix::Node* DancingLinksMatrix::chooseColumn() const {
     Node* col = nullptr;
     int min_size = std::numeric_limits<int>::max();
-
-    std::cout << "Active columns: ";
-    for (Node* c = root->right; c != root; c = c->right) {
-        std::cout << c->id << "(" << c->size << ") ";
+    
+    for (Node* c = root->right; c != root; c = c->right) {        
         if (c->size < min_size) {
             min_size = c->size;
             col = c;
         }
-    }
-    std::cout << "\n";
+    }    
 
     return col;
+}
+
+void DancingLinksMatrix::cleanup() {
+
+    if (!isFullyUncovered()) {       
+        rollbackAll();
+    }
+
+    // 1. Удаляем все обычные узлы (обходим каждый столбец)
+    Node* col = root->right;
+    while (col != root) {
+        Node* node = col->down;
+        while (node != col) {
+            Node* to_delete = node;
+            node = node->down;  // сохраняем следующий перед удалением
+            delete to_delete;
+        }
+        col = col->right;
+    }
+
+    // 2. Удаляем все заголовки столбцов
+    Node* cur = root->right;
+    while (cur != root) {
+        Node* to_delete = cur;
+        cur = cur->right;  // сохраняем следующий перед удалением
+        delete to_delete;
+    }
+
+    // 3. Удаляем корень
+    delete root;
+    root = nullptr;
 }
 
 #ifdef DEBUG
