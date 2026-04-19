@@ -4,7 +4,10 @@
 #include <crtdbg.h>
 #include "dancing_links/dancing_links_matrix.h"
 #include <iostream>
-#include <thread>
+#include "sudoku/sudoku_solver.h"
+
+
+
 
 int main() {
     setlocale(LC_ALL, "russian");
@@ -18,6 +21,8 @@ int main() {
     matrix.print();
 
     std::vector<int> solution;
+    SudokuSolver<25> sud(std::vector<std::tuple<int, int, int>>{{1, 1, 1}});
+
     
     
     // Матрица 3x4 из примера:
