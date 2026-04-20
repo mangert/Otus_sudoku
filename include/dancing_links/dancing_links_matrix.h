@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <stack>
+#include <span>
 #include <optional>
 
 class DancingLinksMatrix final {
@@ -17,7 +18,13 @@ public:
     DancingLinksMatrix(const DancingLinksMatrix&) = delete;
     DancingLinksMatrix& operator=(const DancingLinksMatrix&) = delete;
 
-    void addRow(const std::vector<int>& col_indices, int row_id);
+    // Конструктор перемещения
+    DancingLinksMatrix(DancingLinksMatrix&& other) noexcept;        
+
+    // Оператор перемещения
+    DancingLinksMatrix& operator=(DancingLinksMatrix&& other) noexcept;
+
+    void addRow(std::span<const int> col_indices, int row_id);
     
     void cover(int col_idx);
     void uncover(int col_idx);

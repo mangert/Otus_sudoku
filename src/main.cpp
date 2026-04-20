@@ -6,16 +6,13 @@
 #include <iostream>
 #include "sudoku/sudoku_solver.h"
 
-
-
-
 int main() {
     setlocale(LC_ALL, "russian");
 
     DancingLinksMatrix matrix(4);
-    matrix.addRow({ 0, 2 }, 1);
-    matrix.addRow({ 1, 3 }, 2);
-    matrix.addRow({ 0, 3 }, 3);
+    matrix.addRow(std::array<int, 2>{ 0, 2 }, 1);
+    matrix.addRow(std::array<int, 2>{ 1, 3 }, 2);
+    matrix.addRow(std::array<int, 2>{ 0, 3 }, 3);
 
     std::cout << "Initial matrix:\n";
     matrix.print();

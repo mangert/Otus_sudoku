@@ -55,8 +55,26 @@ DancingLinksMatrix::~DancingLinksMatrix() {
     cleanup();
 }
 
+// Конструктор перемещения
+DancingLinksMatrix::DancingLinksMatrix(DancingLinksMatrix&& other) noexcept
+    : root(std::exchange(other.root, nullptr))
+    , columns(std::move(other.columns))
+    , cover_stack(std::move(other.cover_stack))
+{}
 
-void DancingLinksMatrix::addRow(const std::vector<int>& col_indices, int row_id) {
+// Оператор перемещения
+DancingLinksMatrix& DancingLinksMatrix::operator=(DancingLinksMatrix&& other) noexcept {
+    if (this != &other) {
+        cleanup();
+        root = std::exchange(other.root, nullptr);
+        columns = std::move(other.columns);
+        cover_stack = std::move(other.cover_stack);
+    }
+    return *this;
+}
+
+
+void DancingLinksMatrix::addRow(std::span<const int> col_indices, int row_id) {
     if (col_indices.empty()) return;
 
     std::vector<Node*> nodes;

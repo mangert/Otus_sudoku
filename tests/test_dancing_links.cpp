@@ -1,4 +1,5 @@
-﻿#include "dancing_links/dancing_links_matrix.h"
+﻿#include <array>
+#include "dancing_links/dancing_links_matrix.h"
 #include "test_utils.h"
 #include <iostream>
 
@@ -16,7 +17,7 @@ bool test_empty_matrix() {
 
 bool test_single_column_single_row() {
     DancingLinksMatrix matrix(1);
-    matrix.addRow({ 0 }, 100);
+    matrix.addRow(std::array<int, 1>{ 0 }, 100);
 
     auto result = matrix.search();
     ASSERT_TRUE(result.has_value());
@@ -29,9 +30,9 @@ bool test_single_column_single_row() {
 bool test_no_solution() {
     // Матрица 3×3 без точного покрытия
     DancingLinksMatrix matrix(3);
-    matrix.addRow({ 0, 1 }, 1);   // 1 1 0
-    matrix.addRow({ 1, 2 }, 2);   // 0 1 1
-    matrix.addRow({ 0, 2 }, 3);   // 1 0 1
+    matrix.addRow(std::array<int, 2>{ 0, 1 }, 1);   // 1 1 0
+    matrix.addRow(std::array<int, 2>{ 1, 2 }, 2);   // 0 1 1
+    matrix.addRow(std::array<int, 2>{ 0, 2 }, 3);   // 1 0 1
 
     auto result = matrix.search();
     ASSERT_FALSE(result.has_value());
@@ -41,9 +42,9 @@ bool test_no_solution() {
 
 bool test_simple_matrix_with_solution() {
     DancingLinksMatrix matrix(4);
-    matrix.addRow({ 0, 2 }, 1);
-    matrix.addRow({ 1, 3 }, 2);
-    matrix.addRow({ 0, 3 }, 3);
+    matrix.addRow(std::array<int, 2>{ 0, 2 }, 1);
+    matrix.addRow(std::array<int, 2>{ 1, 3 }, 2);
+    matrix.addRow(std::array<int, 2>{ 0, 3 }, 3);
 
     auto result = matrix.search(2);
     ASSERT_TRUE(result.has_value());
@@ -58,7 +59,7 @@ bool test_simple_matrix_with_solution() {
 
 bool test_isFullyUncovered() {
     DancingLinksMatrix matrix(2);
-    matrix.addRow({ 0, 1 }, 1);
+    matrix.addRow(std::array<int, 2>{ 0, 1 }, 1);
 
     ASSERT_TRUE(matrix.isFullyUncovered());  // изначально всё раскрыто
 
@@ -75,8 +76,8 @@ bool test_cleanup_does_not_crash() {
     // Просто создаём и уничтожаем матрицу — деструктор проверит себя сам
     {
         DancingLinksMatrix matrix(3);
-        matrix.addRow({ 0, 1, 2 }, 1);
-        matrix.addRow({ 0, 2 }, 2);
+        matrix.addRow(std::array<int, 3>{ 0, 1, 2 }, 1);
+        matrix.addRow(std::array<int, 2>{ 0, 2 }, 2);
         matrix.cover(1);
     }
     // Здесь деструктор вызовется автоматически, и если что-то не так — упадёт
@@ -95,12 +96,12 @@ bool test_Wiki_example() {
 
     DancingLinksMatrix matrix(7);
 
-    matrix.addRow({ 0, 3, 6 }, 1);  // A
-    matrix.addRow({ 0, 3 }, 2);     // B
-    matrix.addRow({ 3, 4, 6 }, 3);  // C
-    matrix.addRow({ 2, 4, 5 }, 4);  // D
-    matrix.addRow({ 1, 2, 5, 6 }, 5); // E
-    matrix.addRow({ 1, 6 }, 6);     // F
+    matrix.addRow(std::array<int, 3>{ 0, 3, 6 }, 1);  // A
+    matrix.addRow(std::array<int, 2>{ 0, 3 }, 2);     // B
+    matrix.addRow(std::array<int, 3>{ 3, 4, 6 }, 3);  // C
+    matrix.addRow(std::array<int, 3>{ 2, 4, 5 }, 4);  // D
+    matrix.addRow(std::array<int, 4>{ 1, 2, 5, 6 }, 5); // E
+    matrix.addRow(std::array<int, 2>{ 1, 6 }, 6);     // F
 
     auto result = matrix.search();
     ASSERT_TRUE(result.has_value());
