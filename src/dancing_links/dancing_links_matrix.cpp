@@ -4,7 +4,7 @@
 
 
 // ============================================================================
-// Определения структур
+// Определения структуры
 // ============================================================================
 
 struct DancingLinksMatrix::Node {
@@ -29,6 +29,8 @@ struct DancingLinksMatrix::Node {
 // ============================================================================
 // Реализация методов класса
 // ============================================================================
+
+//---------------Конструкторы----------//
 
 DancingLinksMatrix::DancingLinksMatrix(int num_columns) {
     
@@ -73,6 +75,7 @@ DancingLinksMatrix& DancingLinksMatrix::operator=(DancingLinksMatrix&& other) no
     return *this;
 }
 
+//---------------Публичные методы----------//
 
 void DancingLinksMatrix::addRow(std::span<const int> col_indices, int row_id) {
     if (col_indices.empty()) return;
@@ -102,10 +105,43 @@ void DancingLinksMatrix::addRow(std::span<const int> col_indices, int row_id) {
 }
 
 void DancingLinksMatrix::cover(int col_idx) {        
-    cover(getColumn(col_idx));
+    cover_impl(getColumn(col_idx));
 }
 
-void DancingLinksMatrix::cover(Node* col) {
+void DancingLinksMatrix::uncover(int col_idx) {
+    uncover_impl(getColumn(col_idx));
+}
+
+std::optional<std::vector<int>> DancingLinksMatrix::search(int expected_solution_size) {
+    std::vector<int> solution;
+    if (expected_solution_size > 0) {
+        solution.reserve(expected_solution_size);
+    }
+
+    if (search_impl(solution)) {
+        return solution;
+    }
+    return std::nullopt;
+}
+
+bool DancingLinksMatrix::isCovered(int col_idx) const {
+    if (col_idx < 0 || col_idx >= static_cast<int>(columns.size())) {
+        return false;
+    }
+    return isCovered(columns[col_idx]);
+}
+
+bool DancingLinksMatrix::isFullyUncovered() const {
+    return cover_stack.empty();
+};
+
+int DancingLinksMatrix::countColumns() const {
+    return static_cast<int>(columns.size());
+}
+
+//---------------Вспомогательные методы----------//
+
+void DancingLinksMatrix::cover_impl(Node* col) {
 
 #ifdef DEBUG
     assert(col != nullptr && "cover: col is nullptr");
@@ -131,11 +167,7 @@ void DancingLinksMatrix::cover(Node* col) {
     }
 }
 
-void DancingLinksMatrix::uncover(int col_idx) {
-    uncover(getColumn(col_idx));
-}
-
-void DancingLinksMatrix::uncover(Node* col) {
+void DancingLinksMatrix::uncover_impl(Node* col) {
 
 #ifdef DEBUG
     assert(col != nullptr && "uncover: col is nullptr");
@@ -158,27 +190,7 @@ void DancingLinksMatrix::uncover(Node* col) {
     col->left->right = col;
 }
 
-DancingLinksMatrix::Node* DancingLinksMatrix::getColumn(int idx) const { 
-#ifdef DEBUG
-    assert(idx >= 0 && idx < static_cast<int>(columns.size()));
-#endif // DEBUG    
-    
-    return columns[idx]; 
-}
-
-std::optional<std::vector<int>> DancingLinksMatrix::search(int expected_solution_size) {
-    std::vector<int> solution;
-    if (expected_solution_size > 0) {
-        solution.reserve(expected_solution_size);
-    }
-
-    if (search_recursive(solution)) {
-        return solution;
-    }
-    return std::nullopt;
-}
-
-bool DancingLinksMatrix::search_recursive(std::vector<int>& solution) {
+bool DancingLinksMatrix::search_impl(std::vector<int>& solution) {
     if (root->right == root) {
         return true;
     }
@@ -196,51 +208,44 @@ bool DancingLinksMatrix::search_recursive(std::vector<int>& solution) {
 
         // Покрываем остальные столбцы этой строки
         for (Node* j = row->right; j != row; j = j->right) {
-            cover(j->column->id);
+            cover_impl(j->column);
         }
 
-        if (search_recursive(solution)) {
+        if (search_impl(solution)) {
             return true;
         }
 
         // Откат: восстанавливаем остальные столбцы
         for (Node* j = row->left; j != row; j = j->left) {
-            uncover(j->column->id);
+            uncover_impl(j->column);
         }
 
         solution.pop_back();
     }
 
     // Восстанавливаем выбранный столбец
-    uncover(col->id);  
+    uncover_impl(col);  
 
     return false;
-}
-
-bool DancingLinksMatrix::isCovered(int col_idx) const {
-    if (col_idx < 0 || col_idx >= static_cast<int>(columns.size())) {
-        return false;
-    }
-    return isCovered(columns[col_idx]);
-}
-
-bool DancingLinksMatrix::isCovered(Node* col) const {
-    return col->left->right != col;
 }
 
 void DancingLinksMatrix::rollbackAll() {
     
     while (!cover_stack.empty()) {
-        uncover(cover_stack.top());
+        uncover_impl(cover_stack.top());
     }
 }
 
-bool DancingLinksMatrix::isFullyUncovered() const {
-    return cover_stack.empty();
-};
+DancingLinksMatrix::Node* DancingLinksMatrix::getColumn(int idx) const {
+#ifdef DEBUG
+    assert(idx >= 0 && idx < static_cast<int>(columns.size()));
+#endif // DEBUG    
 
-int DancingLinksMatrix::countColumns() const { 
-    return static_cast<int>(columns.size()); 
+    return columns[idx];
+}
+
+bool DancingLinksMatrix::isCovered(Node* col) const {
+    return col->left->right != col;
 }
 
 DancingLinksMatrix::Node* DancingLinksMatrix::chooseColumn() const {
@@ -288,6 +293,7 @@ void DancingLinksMatrix::cleanup() {
     root = nullptr;
 }
 
+//---------------Публичный отладочный метод ----------//
 #ifdef DEBUG
 void DancingLinksMatrix::print() const {
     std::cout << "=== Dancing Links Matrix ===\n";
@@ -320,4 +326,3 @@ void DancingLinksMatrix::print() const {
     std::cout << "===========================\n" << std::endl;
 };
 #endif // DEBUG
-

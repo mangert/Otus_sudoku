@@ -42,20 +42,22 @@ public:
 
 private:
     
-    void cover(Node* col);
-    void uncover(Node* col);
-    bool search_recursive(std::vector<int>& solution);
+    void cover_impl(Node* col);
+    void uncover_impl(Node* col);
+    bool search_impl(std::vector<int>& solution);
 
     // Откат всех cover (для cleanup)
     void rollbackAll();
 
     Node* getColumn(int idx) const;
     // Проверка состояния    
-    bool isCovered(Node* col) const;
+    bool isCovered(Node* col) const;    
+
+    //выбор столбца с минимальным size
+    Node* chooseColumn() const;
+    
     // Полная очистка
     void cleanup();
-
-    Node* chooseColumn() const;
 
     Node* root;
     std::vector<Node*> columns;

@@ -1,7 +1,7 @@
 ﻿cmake_minimum_required(VERSION 3.15)
 project(Sudoku)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(MSVC)
@@ -24,6 +24,9 @@ target_include_directories(dlx PUBLIC
 # ============================================================================
 add_executable(Sudoku src/main.cpp)
 target_link_libraries(Sudoku dlx)
+target_include_directories(Sudoku PRIVATE
+    ${CMAKE_SOURCE_DIR}/include
+)
 
 # ============================================================================
 # Тесты

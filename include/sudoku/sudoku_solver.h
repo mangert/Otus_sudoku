@@ -1,9 +1,10 @@
 #pragma once
 #include <array>
-#include <optional>
 #include <vector>
 #include <concepts>
 #include "dancing_links/dancing_links_matrix.h"
+#include <expected>
+
 
 constexpr size_t constexpr_sqrt(size_t n) {
     if (n == 0 || n == 1) return n;
@@ -30,8 +31,13 @@ concept ValidSudokuSize = isPerfectSquare(N);
 template<size_t N> requires ValidSudokuSize<N>
 class SudokuSolver final {
 public:
-    using Board = std::array<std::array<int, N>, N>;
+    using Board = std::array<std::array<int, N>, N>; //тип доски
     using FixedCell = std::tuple<int, int, int>;  // row, col, digit
+    
+    enum class SolverError {
+        INVALID_CONSTRAINTS,  // начальные данные противоречивы
+        NO_SOLUTION           // решения нет
+    };
 
     // Конструкторы
     explicit SudokuSolver(const Board& board);
@@ -44,7 +50,7 @@ public:
     ~SudokuSolver() = default;
 
     // Решение
-    std::optional<Board> solve() const;
+    std::expected<Board, SolverError> solve() const;
 
 private:
     std::vector<FixedCell> fixed_cells; //начальные клетки
@@ -60,7 +66,7 @@ private:
     static int encodeRowId(int row, int col, int digit); 
     static FixedCell decodeRowId(int row_id);
     void fillExactCoverMatrix(DancingLinksMatrix& dlx) const;
-    void applyInitialConstraints(DancingLinksMatrix& dlx) const;
+    bool applyInitialConstraints(DancingLinksMatrix& dlx) const;
     Board rebuildBoardFromSolution(const std::vector<int>& solution) const;
 };
 
@@ -86,18 +92,23 @@ SudokuSolver<N>::SudokuSolver(const Board& board) {
 
 // Решение
 template<size_t N> requires ValidSudokuSize<N>
-std::optional<typename SudokuSolver<N>::Board> SudokuSolver<N>::solve() const {
+std::expected<typename SudokuSolver<N>::Board, typename SudokuSolver<N>::SolverError>
+SudokuSolver<N>::solve() const {
     
     DancingLinksMatrix dlx(TOTAL_COLUMNS);
     fillExactCoverMatrix(dlx);
-    applyInitialConstraints(dlx);
-    auto solution = dlx.search(CELLS);
-    
-    if (solution.has_value()) {
-        auto board = rebuildBoardFromSolution(solution.value());
-        return board;
-    }    
-    return std::nullopt;
+
+    // Проверка начальных ограничений
+    if (!applyInitialConstraints(dlx)) {
+        return std::unexpected(SolverError::INVALID_CONSTRAINTS);
+    }
+
+    auto solution = dlx.search(CELLS); //А может вычесть количество заполненных клеток?
+    if (!solution.has_value()) {
+        return std::unexpected(SolverError::NO_SOLUTION);
+    }
+
+    return rebuildBoardFromSolution(solution.value());
 }
 
 // Служебные методы
@@ -117,7 +128,7 @@ std::array<int, SudokuSolver<N>::CONSTRAINTS_COUNT> SudokuSolver<N>::getColumnIn
 }
 
 template<size_t N> requires ValidSudokuSize<N>
-static int SudokuSolver<N>::encodeRowId(int row, int col, int digit) {
+int SudokuSolver<N>::encodeRowId(int row, int col, int digit) {
     return ((row * N + col) * N + (digit - 1));
 }
 
@@ -147,20 +158,28 @@ void SudokuSolver<N>::fillExactCoverMatrix(DancingLinksMatrix& dlx) const {
 }
 
 template<size_t N> requires ValidSudokuSize<N>
-void SudokuSolver<N>::applyInitialConstraints(DancingLinksMatrix& dlx) const {
-    
-    for (auto& [row, col, digit] : fixed_cells) {
-        auto indices = getColumnIndices(row, col, digit);
-        for (auto& c : indices) {
-            dlx.cover(c);
+bool SudokuSolver<N>::applyInitialConstraints(DancingLinksMatrix& dlx) const {
+    for (const auto& [row, col, digit] : fixed_cells) {
+        for (int col_idx : getColumnIndices(row, col, digit)) {            
+            if (digit < 1 || digit > N || dlx.isCovered(col_idx)) {
+                return false;  // конфликт
+            }
+            dlx.cover(col_idx);
         }
-    }        
+    }
+    return true;
 }
 
 template<size_t N> requires ValidSudokuSize<N>
 typename SudokuSolver<N>::Board
 SudokuSolver<N>::rebuildBoardFromSolution(const std::vector<int>& solution) const {
+    
     Board board{};
+    // Заполняем начальные значения
+    for (const auto& [row, col, digit] : fixed_cells) {
+        board[row][col] = digit;
+    }
+    // Заполняем найденные алгоритмом
     for (int row_id : solution) {
         auto [row, col, digit] = decodeRowId(row_id);
         board[row][col] = digit;

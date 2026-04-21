@@ -1,67 +1,59 @@
 #define _CRTDBG_MAP_ALLOC
 #define DEBUG
-
 #include <crtdbg.h>
 #include "dancing_links/dancing_links_matrix.h"
 #include <iostream>
 #include "sudoku/sudoku_solver.h"
 
+void printBoard(const std::array<std::array<int, 9>, 9>& board) {
+    for (int r = 0; r < 9; ++r) {
+        for (int c = 0; c < 9; ++c) {
+            std::cout << board[r][c] << " ";
+            if (c == 2 || c == 5) std::cout << "| ";
+        }
+        std::cout << "\n";
+        if (r == 2 || r == 5) {
+            std::cout << "------+-------+------\n";
+        }
+    }
+}
+
 int main() {
     setlocale(LC_ALL, "russian");
 
-    DancingLinksMatrix matrix(4);
-    matrix.addRow(std::array<int, 2>{ 0, 2 }, 1);
-    matrix.addRow(std::array<int, 2>{ 1, 3 }, 2);
-    matrix.addRow(std::array<int, 2>{ 0, 3 }, 3);
+    using Board = std::array<std::array<int, 9>, 9>;
 
-    std::cout << "Initial matrix:\n";
-    matrix.print();
+    Board board = { {
+        {{4, 0, 0, 5, 0, 3, 0, 0, 6}},
+        {{0, 0, 6, 0, 8, 0, 2, 0, 0}},
+        {{0, 0, 0, 2, 0, 4, 0, 0, 0}},
+        {{0, 2, 0, 0, 0, 0, 0, 6, 0}},
+        {{0, 1, 0, 0, 0, 0, 0, 9, 0}},
+        {{0, 4, 0, 0, 0, 0, 0, 1, 0}},
+        {{0, 0, 0, 3, 0, 2, 0, 0, 0}},
+        {{0, 0, 4, 0, 9, 0, 6, 0, 0}},
+        {{8, 0, 0, 6, 0, 7, 0, 0, 1}}
+    } };
 
-    std::vector<int> solution;
-    SudokuSolver<25> sud(std::vector<std::tuple<int, int, int>>{{1, 1, 1}});
+    std::cout << "=== Исходная доска ===\n";
+    printBoard(board);
 
-    
-    
-    // Матрица 3x4 из примера:
-    //     C0 C1 C2 C3
-    // R1: 1  0  1  0
-    // R2: 0  1  0  1
-    // R3: 1  0  0  1
-    /*
-    DancingLinksMatrix matrix(4);
+    SudokuSolver<9> solver(board);
+    auto result = solver.solve();
 
-    matrix.addRow({ 0, 2 }, 1);   // строка 1: столбцы 0 и 2
-    matrix.addRow({ 1, 3 }, 2);   // строка 2: столбцы 1 и 3
-    matrix.addRow({ 0, 3 }, 3);   // строка 3: столбцы 0 и 3
-
-    matrix.print();
-    std::cout << "--------------------------" << std::endl;
-    auto* col1 = matrix.getColumn(1);
-    matrix.cover(col1);
-    matrix.print();
-
-    matrix.uncover(col1);
-    std::cout << "=== ПОСЛЕ uncover ===\n";
-    matrix.print();*/
-    /*
-    // Включаем автоматическую проверку утечек
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    std::cout << "=== Тест утечек памяти ===\n";
-
-    // Создаём матрицу
-    {
-        DancingLinksMatrix matrix(4);
-
-        // Добавляем строки
-        matrix.addRow({ 0, 2 }, 1);
-        matrix.addRow({ 1, 3 }, 2);
-        matrix.addRow({ 0, 3 }, 3);
-
-        matrix.print();
+    if (result.has_value()) {
+        std::cout << "\n=== Решение ===\n";
+        printBoard(result.value());
     }
-    std::cout << "\nПрограмма завершена. Проверь Diagnostic Tools\n";
-    std::cout << "Нажми Enter для выхода...\n";
-    std::cin.get();  // Пауза, чтобы успеть посмотреть диагностику
-    */
+    else {
+        std::cout << "\nОшибка: "
+            << (result.error() == SudokuSolver<9>::SolverError::INVALID_CONSTRAINTS
+                ? "некорректные начальные данные"
+                : "решения не существует")
+            << "\n";
+    }
+
     return 0;
+    
+    
 }

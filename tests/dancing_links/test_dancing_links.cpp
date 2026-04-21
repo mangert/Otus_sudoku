@@ -1,6 +1,6 @@
 ﻿#include <array>
 #include "dancing_links/dancing_links_matrix.h"
-#include "test_utils.h"
+#include "../test_utils.h"
 #include <iostream>
 
 // ============================================================================
