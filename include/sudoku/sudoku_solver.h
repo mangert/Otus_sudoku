@@ -103,7 +103,7 @@ SudokuSolver<N>::solve() const {
         return std::unexpected(SolverError::INVALID_CONSTRAINTS);
     }
 
-    auto solution = dlx.search(CELLS); //ј может вычесть количество заполненных клеток?
+    auto solution = dlx.search(CELLS - fixed_cells.size());
     if (!solution.has_value()) {
         return std::unexpected(SolverError::NO_SOLUTION);
     }
@@ -122,9 +122,8 @@ std::array<int, SudokuSolver<N>::CONSTRAINTS_COUNT> SudokuSolver<N>::getColumnIn
     int cell_idx = row * N + col;
     int row_idx = CELLS + row * N + d;
     int col_idx = 2 * CELLS + col * N + d;
-    int block_idx = 3 * CELLS + block * N + d;
-
-    return { cell_idx, row_idx, col_idx, block_idx };
+    int block_idx = 3 * CELLS + block * N + d;    
+    return { cell_idx, row_idx, col_idx, block_idx};
 }
 
 template<size_t N> requires ValidSudokuSize<N>

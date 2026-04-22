@@ -12,8 +12,7 @@ endif()
 # Библиотека DLX (общая для тестов и основной программы)
 # ============================================================================
 add_library(dlx STATIC
-    src/dancing_links/dancing_links_matrix.cpp
-)
+    src/dancing_links/dancing_links_matrix.cpp)
 
 target_include_directories(dlx PUBLIC
     ${CMAKE_SOURCE_DIR}/include
@@ -35,4 +34,12 @@ option(BUILD_TESTS "Build tests" ON)
 if(BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
+endif()
+
+# ============================================================================
+# Консольное приложение
+# ============================================================================
+option(BUILD_APP "Build console application" ON)
+if(BUILD_APP)
+    add_subdirectory(app)
 endif()
