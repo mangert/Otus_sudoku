@@ -1,7 +1,7 @@
 add_executable(SudokuApp
     app.cpp
     # sudokuConsole.cpp   # раскомментируй, когда добавишь
-)
+ "console_utils.cpp" "console_utils.h" "sudoku_ui.cpp" "sudoku_ui.h")
 
 target_link_libraries(SudokuApp
     dlx                    

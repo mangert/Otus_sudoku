@@ -1,8 +1,8 @@
 ﻿#pragma once
-
 #include <array>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include "sudoku/sudoku_solver.h"
 
@@ -43,32 +43,40 @@ namespace SudokuIO {
         return true;
     }
 
-    // Вывод доски в консоль
+    // Вывод доски в консоль    
     template<size_t N>
     void printBoard(const std::array<std::array<int, N>, N>& board) {
         constexpr int block_size = static_cast<int>(constexpr_sqrt(N));
+        const int cell_width = 2;  // ширина поля для одного числа
 
         for (size_t row = 0; row < N; ++row) {
+            // Горизонтальный разделитель блоков (перед строкой блока)
             if (row % block_size == 0 && row != 0) {
-                for (size_t i = 0; i < N + block_size - 1; ++i) std::cout << "---";
+                for (size_t i = 0; i < N; ++i) {
+                    std::cout << "---";
+                    if (i % block_size == block_size - 1 && i != N - 1) {
+                        std::cout << "+";
+                    }
+                }
                 std::cout << "\n";
             }
+
             for (size_t col = 0; col < N; ++col) {
+                // Вертикальный разделитель блоков
                 if (col % block_size == 0 && col != 0) {
-                    std::cout << "| ";
+                    std::cout << "|";
                 }
+
                 int val = board[row][col];
                 if (val == 0) {
-                    std::cout << ". ";
-                }
-                else if (val < 10) {
-                    std::cout << val << " ";
+                    std::cout << " .";
                 }
                 else {
-                    // Для 16×16: выводим как A-F
-                    char c = 'A' + (val - 10);
-                    std::cout << c << " ";
+                    std::cout << std::setw(cell_width) << val;
                 }
+
+                // Пробел между клетками (кроме последней)
+                if (col < N - 1) std::cout << " ";
             }
             std::cout << "\n";
         }
