@@ -1,4 +1,4 @@
-#include "console_utils.h"
+ï»¿#include "console_utils.h"
 #include <iostream>
 #include <limits>
 #include <algorithm>
@@ -11,7 +11,8 @@ namespace ConsoleUtils {
             for (size_t i = 0; i < options.size(); ++i) {
                 std::cout << i + 1 << ". " << options[i] << "\n";
             }
-            std::cout << "Âàø âûáîð: ";
+            std::cout << "0. Ð’Ñ‹Ñ…Ð¾Ð´\n";
+            std::cout << "Ð’Ð°Ñˆ Ð²Ñ‹Ð±Ð¾Ñ€: ";
 
             int choice;
             std::cin >> choice;
@@ -19,14 +20,17 @@ namespace ConsoleUtils {
             if (std::cin.fail()) {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Îøèáêà: ââåäèòå ÷èñëî.\n";
+                std::cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð¾.\n";
                 continue;
             }
 
+            if (choice == 0) {
+                return -1;  // ÑÐ¸Ð³Ð½Ð°Ð» Ð²Ñ‹Ñ…Ð¾Ð´Ð°
+            }
             if (choice >= 1 && choice <= static_cast<int>(options.size())) {
                 return choice - 1;
             }
-            std::cout << "Îøèáêà: âûáåðèòå ïóíêò îò 1 äî " << options.size() << "\n";
+            std::cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ð²Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ 0 (Ð²Ñ‹Ñ…Ð¾Ð´) Ð¸Ð»Ð¸ 1-" << options.size() << ".\n";
         }
     }
 
@@ -42,7 +46,7 @@ namespace ConsoleUtils {
             if (answer == "n" || answer == "N" || answer == "no" || answer == "No") {
                 return false;
             }
-            std::cout << "Ïîæàëóéñòà, ââåäèòå y èëè n.\n";
+            std::cout << "ÐŸÐ¾Ð¶Ð°Ð»ÑƒÐ¹ÑÑ‚Ð°, Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ y Ð¸Ð»Ð¸ n.\n";
         }
     }
 
@@ -56,7 +60,7 @@ namespace ConsoleUtils {
             if (!result.empty() || allowEmpty) {
                 return result;
             }
-            std::cout << "Ñòðîêà íå ìîæåò áûòü ïóñòîé. Ïîïðîáóéòå ñíîâà.\n";
+            std::cout << "Ð¡Ñ‚Ñ€Ð¾ÐºÐ° Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¿ÑƒÑÑ‚Ð¾Ð¹. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°.\n";
         }
     }
 
@@ -69,14 +73,14 @@ namespace ConsoleUtils {
             if (std::cin.fail()) {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Îøèáêà: ââåäèòå öåëîå ÷èñëî.\n";
+                std::cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ†ÐµÐ»Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾.\n";
                 continue;
             }
 
             if (value >= min && value <= max) {
                 return value;
             }
-            std::cout << "Îøèáêà: ÷èñëî äîëæíî áûòü îò " << min << " äî " << max << "\n";
+            std::cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ñ‡Ð¸ÑÐ»Ð¾ Ð´Ð¾Ð»Ð¶Ð½Ð¾ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚ " << min << " Ð´Ð¾ " << max << "\n";
         }
     }
 

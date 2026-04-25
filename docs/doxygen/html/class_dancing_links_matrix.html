@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sudoku Solver: Класс DancingLinksMatrix</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Sudoku Solver<span id="projectnumber">&#160;1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('class_dancing_links_matrix.html','','class_dancing_links_matrix-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Класс DancingLinksMatrix<span class="mlabels"><span class="mlabel final">final</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="dancing__links__matrix_8h_source.html">dancing_links_matrix.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Классы</h2></td></tr>
+<tr class="memitem:Node" id="r_Node"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_dancing_links_matrix_1_1_node.html">Node</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a91044ba853786436691d1279e8ea8fa8" id="r_a91044ba853786436691d1279e8ea8fa8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a91044ba853786436691d1279e8ea8fa8">DancingLinksMatrix</a> (int num_columns)</td></tr>
+<tr class="memdesc:a91044ba853786436691d1279e8ea8fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструктор матрицы с заданным количеством столбцов  <br /></td></tr>
+<tr class="memitem:a6268adc2bfed5cbe5676b16afbe050ae" id="r_a6268adc2bfed5cbe5676b16afbe050ae"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6268adc2bfed5cbe5676b16afbe050ae">~DancingLinksMatrix</a> ()</td></tr>
+<tr class="memdesc:a6268adc2bfed5cbe5676b16afbe050ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Деструктор, освобождает всю память  <br /></td></tr>
+<tr class="memitem:afae1cba022f75b115f617675f59bb2c6" id="r_afae1cba022f75b115f617675f59bb2c6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afae1cba022f75b115f617675f59bb2c6">DancingLinksMatrix</a> (const <a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp;)=delete</td></tr>
+<tr class="memitem:a6e1ec0bd6b5459809fe3cd1793622426" id="r_a6e1ec0bd6b5459809fe3cd1793622426"><td class="memItemLeft"><a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6e1ec0bd6b5459809fe3cd1793622426">operator=</a> (const <a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp;)=delete</td></tr>
+<tr class="memitem:a948228d93432b5bc29677c8e3089cf30" id="r_a948228d93432b5bc29677c8e3089cf30"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a948228d93432b5bc29677c8e3089cf30">DancingLinksMatrix</a> (<a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="memdesc:a948228d93432b5bc29677c8e3089cf30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструктор перемещения  <br /></td></tr>
+<tr class="memitem:a8457a196feb5217902b0bad0cdafd6f2" id="r_a8457a196feb5217902b0bad0cdafd6f2"><td class="memItemLeft"><a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a8457a196feb5217902b0bad0cdafd6f2">operator=</a> (<a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="memdesc:a8457a196feb5217902b0bad0cdafd6f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Оператор перемещения  <br /></td></tr>
+<tr class="memitem:a05e0dacd9e387b313f466769bf099f1f" id="r_a05e0dacd9e387b313f466769bf099f1f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a05e0dacd9e387b313f466769bf099f1f">addRow</a> (std::span&lt; const int &gt; col_indices, int row_id)</td></tr>
+<tr class="memdesc:a05e0dacd9e387b313f466769bf099f1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавляет строку в матрицу  <br /></td></tr>
+<tr class="memitem:a2d27636c1e48209263ec498292acfc43" id="r_a2d27636c1e48209263ec498292acfc43"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2d27636c1e48209263ec498292acfc43">cover</a> (int col_idx)</td></tr>
+<tr class="memdesc:a2d27636c1e48209263ec498292acfc43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Покрывает столбец и все конфликтующие с ним строки  <br /></td></tr>
+<tr class="memitem:ac60f57eaadb26b240c2edcf9cd1b76cb" id="r_ac60f57eaadb26b240c2edcf9cd1b76cb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac60f57eaadb26b240c2edcf9cd1b76cb">uncover</a> (int col_idx)</td></tr>
+<tr class="memdesc:ac60f57eaadb26b240c2edcf9cd1b76cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Восстанавливает ранее покрытый столбец (LIFO порядок).  <br /></td></tr>
+<tr class="memitem:a2b201af9e0122dad2541a3bea568a24f" id="r_a2b201af9e0122dad2541a3bea568a24f"><td class="memItemLeft">std::optional&lt; std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2b201af9e0122dad2541a3bea568a24f">search</a> (int expected_solution_size=0)</td></tr>
+<tr class="memdesc:a2b201af9e0122dad2541a3bea568a24f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Поиск точного покрытия (алгоритм X).  <br /></td></tr>
+<tr class="memitem:a8684a6e9f54d590bd6b231e152dcddf4" id="r_a8684a6e9f54d590bd6b231e152dcddf4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8684a6e9f54d590bd6b231e152dcddf4">isCovered</a> (int col_idx) const</td></tr>
+<tr class="memdesc:a8684a6e9f54d590bd6b231e152dcddf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет, покрыт ли столбец  <br /></td></tr>
+<tr class="memitem:a00b17ae685d43bf77770e8a8aeee5a45" id="r_a00b17ae685d43bf77770e8a8aeee5a45"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a00b17ae685d43bf77770e8a8aeee5a45">isFullyUncovered</a> () const</td></tr>
+<tr class="memdesc:a00b17ae685d43bf77770e8a8aeee5a45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет, все ли столбцы раскрыты  <br /></td></tr>
+<tr class="memitem:a8f091355554825a34f6534a5041aae94" id="r_a8f091355554825a34f6534a5041aae94"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8f091355554825a34f6534a5041aae94">countColumns</a> () const</td></tr>
+<tr class="memdesc:a8f091355554825a34f6534a5041aae94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает количество столбцов в матрице  <br /></td></tr>
+</table>
+<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Конструктор(ы)</h2>
+<a id="a91044ba853786436691d1279e8ea8fa8" name="a91044ba853786436691d1279e8ea8fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91044ba853786436691d1279e8ea8fa8">&#9670;&#160;</a></span>DancingLinksMatrix() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DancingLinksMatrix::DancingLinksMatrix </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>num_columns</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Конструктор матрицы с заданным количеством столбцов </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num_columns</td><td>количество столбцов в матрице </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6268adc2bfed5cbe5676b16afbe050ae" name="a6268adc2bfed5cbe5676b16afbe050ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6268adc2bfed5cbe5676b16afbe050ae">&#9670;&#160;</a></span>~DancingLinksMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DancingLinksMatrix::~DancingLinksMatrix </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Деструктор, освобождает всю память </p>
+
+</div>
+</div>
+<a id="afae1cba022f75b115f617675f59bb2c6" name="afae1cba022f75b115f617675f59bb2c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afae1cba022f75b115f617675f59bb2c6">&#9670;&#160;</a></span>DancingLinksMatrix() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DancingLinksMatrix::DancingLinksMatrix </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a948228d93432b5bc29677c8e3089cf30" name="a948228d93432b5bc29677c8e3089cf30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a948228d93432b5bc29677c8e3089cf30">&#9670;&#160;</a></span>DancingLinksMatrix() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DancingLinksMatrix::DancingLinksMatrix </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Конструктор перемещения </p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Методы</h2>
+<a id="a05e0dacd9e387b313f466769bf099f1f" name="a05e0dacd9e387b313f466769bf099f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05e0dacd9e387b313f466769bf099f1f">&#9670;&#160;</a></span>addRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DancingLinksMatrix::addRow </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; const int &gt;</td>          <td class="paramname"><span class="paramname"><em>col_indices</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>row_id</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Добавляет строку в матрицу </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">col_indices</td><td>список индексов столбцов, в которых в этой строке стоят единицы </td></tr>
+    <tr><td class="paramname">row_id</td><td>уникальный идентификатор строки (возвращается в решении) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8f091355554825a34f6534a5041aae94" name="a8f091355554825a34f6534a5041aae94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f091355554825a34f6534a5041aae94">&#9670;&#160;</a></span>countColumns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int DancingLinksMatrix::countColumns </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Возвращает количество столбцов в матрице </p>
+
+</div>
+</div>
+<a id="a2d27636c1e48209263ec498292acfc43" name="a2d27636c1e48209263ec498292acfc43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d27636c1e48209263ec498292acfc43">&#9670;&#160;</a></span>cover()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DancingLinksMatrix::cover </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>col_idx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Покрывает столбец и все конфликтующие с ним строки </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">col_idx</td><td>индекс столбца </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8684a6e9f54d590bd6b231e152dcddf4" name="a8684a6e9f54d590bd6b231e152dcddf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8684a6e9f54d590bd6b231e152dcddf4">&#9670;&#160;</a></span>isCovered()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DancingLinksMatrix::isCovered </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>col_idx</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Проверяет, покрыт ли столбец </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">col_idx</td><td>индекс столбца </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>true если столбец уже покрыт, false иначе </dd></dl>
+
+</div>
+</div>
+<a id="a00b17ae685d43bf77770e8a8aeee5a45" name="a00b17ae685d43bf77770e8a8aeee5a45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00b17ae685d43bf77770e8a8aeee5a45">&#9670;&#160;</a></span>isFullyUncovered()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DancingLinksMatrix::isFullyUncovered </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Проверяет, все ли столбцы раскрыты </p>
+<dl class="section return"><dt>Возвращает</dt><dd>true если нет покрытых столбцов </dd></dl>
+
+</div>
+</div>
+<a id="a6e1ec0bd6b5459809fe3cd1793622426" name="a6e1ec0bd6b5459809fe3cd1793622426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e1ec0bd6b5459809fe3cd1793622426">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp; DancingLinksMatrix::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8457a196feb5217902b0bad0cdafd6f2" name="a8457a196feb5217902b0bad0cdafd6f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8457a196feb5217902b0bad0cdafd6f2">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp; DancingLinksMatrix::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_dancing_links_matrix.html">DancingLinksMatrix</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Оператор перемещения </p>
+
+</div>
+</div>
+<a id="a2b201af9e0122dad2541a3bea568a24f" name="a2b201af9e0122dad2541a3bea568a24f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b201af9e0122dad2541a3bea568a24f">&#9670;&#160;</a></span>search()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::vector&lt; int &gt; &gt; DancingLinksMatrix::search </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>expected_solution_size</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Поиск точного покрытия (алгоритм X). </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expected_solution_size</td><td>ожидаемый размер решения (для резервирования памяти) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>решение в виде списка row_id, либо std::nullopt если решения нет </dd></dl>
+
+</div>
+</div>
+<a id="ac60f57eaadb26b240c2edcf9cd1b76cb" name="ac60f57eaadb26b240c2edcf9cd1b76cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac60f57eaadb26b240c2edcf9cd1b76cb">&#9670;&#160;</a></span>uncover()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DancingLinksMatrix::uncover </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>col_idx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Восстанавливает ранее покрытый столбец (LIFO порядок). </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">col_idx</td><td>индекс столбца </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>Объявления и описания членов классов находятся в файлах:<ul>
+<li>include/dancing_links/<a class="el" href="dancing__links__matrix_8h_source.html">dancing_links_matrix.h</a></li>
+<li>src/dancing_links/<a class="el" href="dancing__links__matrix_8cpp.html">dancing_links_matrix.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="class_dancing_links_matrix.html">DancingLinksMatrix</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

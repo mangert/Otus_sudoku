@@ -1,0 +1,18 @@
+var searchData=
+[
+  ['test_5f4x4_5fno_5fsolution_0',['test_4x4_no_solution',['../test__sudoku_8cpp.html#a4d4c7b8ab38d5689031774cc5b731079',1,'test_sudoku.cpp']]],
+  ['test_5fcleanup_5fdoes_5fnot_5fcrash_1',['test_cleanup_does_not_crash',['../test__dancing__links_8cpp.html#a9e0bdc1e15fd2a872ad44ffc15e28a3b',1,'test_dancing_links.cpp']]],
+  ['test_5feasy4_5fsudoku_2',['test_easy4_sudoku',['../test__sudoku_8cpp.html#ac947faf76b54f963b3629efa5f11f233',1,'test_sudoku.cpp']]],
+  ['test_5feasy9_5fsudoku_3',['test_easy9_sudoku',['../test__sudoku_8cpp.html#aa57cd8f2adf1dea7db07beef9ec3468a',1,'test_sudoku.cpp']]],
+  ['test_5feasy9_5fsudoku_5fcells_4',['test_easy9_sudoku_cells',['../test__sudoku_8cpp.html#a6f829349c1e6ff85bde11bda999d155f',1,'test_sudoku.cpp']]],
+  ['test_5fempty_5fmatrix_5',['test_empty_matrix',['../test__dancing__links_8cpp.html#ad1c9a531e6bfff3442f685a7820e2471',1,'test_dancing_links.cpp']]],
+  ['test_5fescargot_5fsudoku_6',['test_Escargot_sudoku',['../test__sudoku_8cpp.html#ada5644aee505e4850e7dc0e1655487ef',1,'test_sudoku.cpp']]],
+  ['test_5finvalid_5fsudoku_7',['test_invalid_sudoku',['../test__sudoku_8cpp.html#a7fcf8cefe745cfdbf94ef7738a0b0329',1,'test_sudoku.cpp']]],
+  ['test_5fisfullyuncovered_8',['test_isFullyUncovered',['../test__dancing__links_8cpp.html#ae74be102baf693b58cf8db357a184143',1,'test_dancing_links.cpp']]],
+  ['test_5fmedium9_5fsudoku_9',['test_medium9_sudoku',['../test__sudoku_8cpp.html#ad4062991f37d040d8e534aed6e92dd10',1,'test_sudoku.cpp']]],
+  ['test_5fno_5fsolution_10',['test_no_solution',['../test__dancing__links_8cpp.html#a194f0ccf5a625dc81871a7d78db011be',1,'test_dancing_links.cpp']]],
+  ['test_5fsimple_5fmatrix_5fwith_5fsolution_11',['test_simple_matrix_with_solution',['../test__dancing__links_8cpp.html#a6e57d93b5b96d9827041e00392da24cd',1,'test_dancing_links.cpp']]],
+  ['test_5fsingle_5fcolumn_5fsingle_5frow_12',['test_single_column_single_row',['../test__dancing__links_8cpp.html#ab697c2aee60016cf9932ea5b4b774da6',1,'test_dancing_links.cpp']]],
+  ['test_5fsudoku16_13',['test_sudoku16',['../test__sudoku_8cpp.html#a99502e386ca6948e503be6eecd22ccc0',1,'test_sudoku.cpp']]],
+  ['test_5fwiki_5fexample_14',['test_Wiki_example',['../test__dancing__links_8cpp.html#acde737934b97dfda06d2fff8a692381a',1,'test_dancing_links.cpp']]]
+];

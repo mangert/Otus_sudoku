@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sudoku Solver: Файл tests/test_utils.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Sudoku Solver<span id="projectnumber">&#160;1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__utils_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Файл test_utils.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+</div>
+<p><a href="test__utils_8h_source.html">См. исходные тексты.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Классы</h2></td></tr>
+<tr class="memitem:TestRunner" id="r_TestRunner"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_test_runner.html">TestRunner</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Макросы</h2></td></tr>
+<tr class="memitem:a305a7326a1f4f59bbcafcb3e35a732c7" id="r_a305a7326a1f4f59bbcafcb3e35a732c7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a305a7326a1f4f59bbcafcb3e35a732c7">ASSERT_TRUE</a>(expr)</td></tr>
+<tr class="memitem:a2bcc09cf7a1fdffca3cd9bed2b9d5106" id="r_a2bcc09cf7a1fdffca3cd9bed2b9d5106"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2bcc09cf7a1fdffca3cd9bed2b9d5106">ASSERT_FALSE</a>(expr)</td></tr>
+<tr class="memitem:a9cc34fd87cb865c77439a5d39b3b111b" id="r_a9cc34fd87cb865c77439a5d39b3b111b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9cc34fd87cb865c77439a5d39b3b111b">ASSERT_EQ</a>(a,  b)</td></tr>
+<tr class="memitem:a0086e0b898cbf7a680ba24ed898edb1f" id="r_a0086e0b898cbf7a680ba24ed898edb1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a0086e0b898cbf7a680ba24ed898edb1f">ASSERT_NE</a>(a,  b)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:ae7830321a406c64bb2aa8adcc2e3c970" id="r_ae7830321a406c64bb2aa8adcc2e3c970"><td class="memTemplParams" colspan="2">template&lt;size_t N&gt; </td></tr>
+<tr class="memitem:ae7830321a406c64bb2aa8adcc2e3c970 template"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae7830321a406c64bb2aa8adcc2e3c970">is_valid_sudoku</a> (const std::array&lt; std::array&lt; int, N &gt;, N &gt; &amp;board)</td></tr>
+</table>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Макросы</h2>
+<a id="a9cc34fd87cb865c77439a5d39b3b111b" name="a9cc34fd87cb865c77439a5d39b3b111b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc34fd87cb865c77439a5d39b3b111b">&#9670;&#160;</a></span>ASSERT_EQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ASSERT_EQ</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Макроопределение:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a305a7326a1f4f59bbcafcb3e35a732c7">ASSERT_TRUE</a>((a) == (b))</div>
+<div class="ttc" id="atest__utils_8h_html_a305a7326a1f4f59bbcafcb3e35a732c7"><div class="ttname"><a href="#a305a7326a1f4f59bbcafcb3e35a732c7">ASSERT_TRUE</a></div><div class="ttdeci">#define ASSERT_TRUE(expr)</div><div class="ttdef"><b>Определения</b> test_utils.h:110</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2bcc09cf7a1fdffca3cd9bed2b9d5106" name="a2bcc09cf7a1fdffca3cd9bed2b9d5106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bcc09cf7a1fdffca3cd9bed2b9d5106">&#9670;&#160;</a></span>ASSERT_FALSE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ASSERT_FALSE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Макроопределение:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a305a7326a1f4f59bbcafcb3e35a732c7">ASSERT_TRUE</a>(!(expr))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0086e0b898cbf7a680ba24ed898edb1f" name="a0086e0b898cbf7a680ba24ed898edb1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0086e0b898cbf7a680ba24ed898edb1f">&#9670;&#160;</a></span>ASSERT_NE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ASSERT_NE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Макроопределение:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a305a7326a1f4f59bbcafcb3e35a732c7">ASSERT_TRUE</a>((a) != (b))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a305a7326a1f4f59bbcafcb3e35a732c7" name="a305a7326a1f4f59bbcafcb3e35a732c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a305a7326a1f4f59bbcafcb3e35a732c7">&#9670;&#160;</a></span>ASSERT_TRUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ASSERT_TRUE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Макроопределение:</b><div class="fragment"><div class="line"><span class="keywordflow">if</span> (!(expr)) { std::cerr &lt;&lt; <span class="stringliteral">&quot;Assertion failed: &quot;</span> #expr &lt;&lt; <span class="stringliteral">&quot; at &quot;</span> &lt;&lt; __FILE__ &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Функции</h2>
+<a id="ae7830321a406c64bb2aa8adcc2e3c970" name="ae7830321a406c64bb2aa8adcc2e3c970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7830321a406c64bb2aa8adcc2e3c970">&#9670;&#160;</a></span>is_valid_sudoku()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_valid_sudoku </td>
+          <td>(</td>
+          <td class="paramtype">const std::array&lt; std::array&lt; int, N &gt;, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>board</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_59425e443f801f1f2fd8bbe4959a3ccf.html">tests</a></li><li class="navelem"><a href="test__utils_8h.html">test_utils.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-#include "sudoku_ui.h"
+п»ї#include "sudoku_ui.h"
 #include "sudoku_io.h"
 #include "console_utils.h"
 #include <iostream>
@@ -9,11 +9,11 @@ std::string errorToString(typename SudokuSolver<N>::SolverError error) {
     using E = typename SudokuSolver<N>::SolverError;
     switch (error) {        
     case E::INVALID_CONSTRAINTS:
-        return "некорректные начальные данные (конфликт или дубликаты)";
+        return "РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РЅР°С‡Р°Р»СЊРЅС‹Рµ РґР°РЅРЅС‹Рµ (РєРѕРЅС„Р»РёРєС‚ РёР»Рё РґСѓР±Р»РёРєР°С‚С‹)";
     case E::NO_SOLUTION:
-        return "решения не существует";
+        return "СЂРµС€РµРЅРёСЏ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚";
     }
-    return "неизвестная ошибка";
+    return "РЅРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°";
 }
 
 template<size_t N>
@@ -21,70 +21,82 @@ void processSudoku() {
     using Board = std::array<std::array<int, N>, N>;
 
     while (true) {
-        std::vector<std::string> sourceMenu = { "Загрузить из файла", "Ввести с клавиатуры", "Назад" };
-        int choice = ConsoleUtils::showMenu(sourceMenu, "Выберите источник данных");
+        std::vector<std::string> sourceMenu = { "Р—Р°РіСЂСѓР·РёС‚СЊ РёР· С„Р°Р№Р»Р°", "Р’РІРµСЃС‚Рё СЃ РєР»Р°РІРёР°С‚СѓСЂС‹" };
+        int choice = ConsoleUtils::showMenu(sourceMenu, "Р’С‹Р±РµСЂРёС‚Рµ РёСЃС‚РѕС‡РЅРёРє РґР°РЅРЅС‹С…");
+
+        if (choice == -1) {  // РІС‹С…РѕРґ
+            ConsoleUtils::clearScreen();
+            return;
+        }
 
         Board board;
+        std::string filename;
 
-        if (choice == 0) {
-            std::string filename = ConsoleUtils::askString("Введите имя файла: ");
-            bool success = SudokuIO::readBoardFromFile<N>(filename, board);
-            if (!success) {
-                std::cout << "Ошибка загрузки файла.\n";
+        if (choice == 0) {  // С„Р°Р№Р»
+            filename = ConsoleUtils::askString("Р’РІРµРґРёС‚Рµ РёРјСЏ С„Р°Р№Р»Р°: ");
+            if (!SudokuIO::readBoardFromFile<N>(filename, board)) {
+                std::cout << "РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р°.\n";
                 continue;
             }
+            ConsoleUtils::clearScreen();
+            std::cout << "Р—Р°РіСЂСѓР¶РµРЅРѕ РёР· С„Р°Р№Р»Р°: " << filename << "\n";
         }
-        else if (choice == 1) {
-            std::cout << "Введите " << N << " строк по " << N << " чисел (0 для пустых):\n";
-            bool success = SudokuIO::readBoardFromStdin<N>(board);
-            if (!success) {
-                std::cout << "Ошибка ввода.\n";
+        else if (choice == 1) {  // РєР»Р°РІРёР°С‚СѓСЂР°
+            ConsoleUtils::clearScreen();
+            std::cout << "Р’РІРѕРґ СЃ РєР»Р°РІРёР°С‚СѓСЂС‹...\n";
+            std::cout << "Р’РІРµРґРёС‚Рµ " << N << " СЃС‚СЂРѕРє РїРѕ " << N << " С‡РёСЃРµР» (0 РґР»СЏ РїСѓСЃС‚С‹С…):\n";
+            if (!SudokuIO::readBoardFromStdin<N>(board)) {
+                std::cout << "РћС€РёР±РєР° РІРІРѕРґР°.\n";
                 continue;
             }
-        }
-        else {
-            return; // назад в главное меню
+            ConsoleUtils::clearScreen();
+            std::cout << "Р—Р°РіСЂСѓР¶РµРЅРѕ СЃ РєР»Р°РІРёР°С‚СѓСЂС‹\n";
         }
 
-        // Показать загруженную доску
-        std::cout << "\nЗагруженная доска:\n";
+        // РџРѕРєР°Р·Р°С‚СЊ Р·Р°РіСЂСѓР¶РµРЅРЅСѓСЋ РґРѕСЃРєСѓ
+        std::cout << "\nР—Р°РіСЂСѓР¶РµРЅРЅР°СЏ РґРѕСЃРєР°:\n";
         SudokuIO::printBoard(board);
 
-        if (!ConsoleUtils::askYesNo("Решить эту доску?")) {
+        if (!ConsoleUtils::askYesNo("Р РµС€РёС‚СЊ СЌС‚Сѓ РґРѕСЃРєСѓ?")) {
+            ConsoleUtils::clearScreen();
             continue;
         }
 
-        // Решение
+        // Р РµС€РµРЅРёРµ
         SudokuSolver<N> solver(board);
         auto result = solver.solve();
 
         if (!result.has_value()) {
-            std::cout << "Ошибка: " << errorToString<N>(result.error()) << "\n";
+            std::cout << "РћС€РёР±РєР°: " << errorToString<N>(result.error()) << "\n";
             continue;
         }
 
-        // Показать решение
-        std::cout << "\nРешение:\n";
+        // РџРѕРєР°Р·Р°С‚СЊ СЂРµС€РµРЅРёРµ
+        std::cout << "\nР РµС€РµРЅРёРµ:\n";
         SudokuIO::printBoard(result.value());
 
-        // Меню после решения
-        std::vector<std::string> postMenu = { "Сохранить в файл", "Решить другую", "Выход" };
-        int postChoice = ConsoleUtils::showMenu(postMenu, "Что дальше?");
+        // РњРµРЅСЋ РїРѕСЃР»Рµ СЂРµС€РµРЅРёСЏ
+        std::vector<std::string> postMenu = { "РЎРѕС…СЂР°РЅРёС‚СЊ РІ С„Р°Р№Р»", "Р РµС€РёС‚СЊ РґСЂСѓРіСѓСЋ" };
+        int postChoice = ConsoleUtils::showMenu(postMenu, "Р§С‚Рѕ РґР°Р»СЊС€Рµ?");
 
-        if (postChoice == 0) {
-            std::string filename = ConsoleUtils::askString("Имя файла для сохранения: ");
-            if (SudokuIO::writeBoardToFile(filename, result.value())) {
-                std::cout << "Сохранено.\n";
+        if (postChoice == -1) {  // РІС‹С…РѕРґ
+            ConsoleUtils::clearScreen();
+            return;
+        }
+        else if (postChoice == 0) {  // СЃРѕС…СЂР°РЅРёС‚СЊ
+            std::string saveFilename = ConsoleUtils::askString("РРјСЏ С„Р°Р№Р»Р° РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ: ");
+            if (SudokuIO::writeBoardToFile(saveFilename, result.value())) {
+                std::cout << "РЎРѕС…СЂР°РЅРµРЅРѕ.\n";
             }
             else {
-                std::cout << "Ошибка сохранения.\n";
+                std::cout << "РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ.\n";
             }
+            // РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РѕСЃС‚Р°С‘РјСЃСЏ РІ РјРµРЅСЋ РїРѕСЃР»Рµ СЂРµС€РµРЅРёСЏ
+            // (РЅРµ РІС‹С…РѕРґРёРј, С‡С‚РѕР±С‹ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РјРѕРі РІС‹Р±СЂР°С‚СЊ "Р РµС€РёС‚СЊ РґСЂСѓРіСѓСЋ")
         }
-        else if (postChoice == 1) {
-            continue; // решить другую (выбор источника)
-        }
-        else {
-            return; // выход в главное меню
+        else if (postChoice == 1) {  // СЂРµС€РёС‚СЊ РґСЂСѓРіСѓСЋ
+            ConsoleUtils::clearScreen();
+            continue;
         }
     }
 }
@@ -100,6 +112,6 @@ void runSudokuUI(int N) {
         processSudoku<16>();
     }
     else {
-        std::cout << "Неподдерживаемый размер: " << N << "\n";
+        std::cout << "РќРµРїРѕРґРґРµСЂР¶РёРІР°РµРјС‹Р№ СЂР°Р·РјРµСЂ: " << N << "\n";
     }
 }

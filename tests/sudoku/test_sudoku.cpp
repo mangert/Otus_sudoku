@@ -1,4 +1,4 @@
-#include "sudoku/sudoku_solver.h"
+п»ї#include "sudoku/sudoku_solver.h"
 #include "../test_utils.h"
 #include <iostream>
 #include <chrono>
@@ -197,8 +197,8 @@ bool test_sudoku16() {
 
     return true;
 }
-//------------ Негативные тесты
-bool test_4x4_no_solution() { //нет решения
+//------------ РќРµРіР°С‚РёРІРЅС‹Рµ С‚РµСЃС‚С‹
+bool test_4x4_no_solution() { //РЅРµС‚ СЂРµС€РµРЅРёСЏ
     
     using Board = std::array<std::array<int, 4>, 4>;
     Board board4 = { {
@@ -208,19 +208,19 @@ bool test_4x4_no_solution() { //нет решения
     {{3, 0, 0, 1}}
     } };
 
-    SudokuSolver<4> solver(board4);  // твой пример
+    SudokuSolver<4> solver(board4);  // С‚РІРѕР№ РїСЂРёРјРµСЂ
     auto result = solver.solve();
     ASSERT_FALSE(result.has_value());
     ASSERT_EQ(result.error(), SudokuSolver<4>::SolverError::NO_SOLUTION);
     return true;
 }
 
-bool test_invalid_sudoku() { // неверные входные данные
+bool test_invalid_sudoku() { // РЅРµРІРµСЂРЅС‹Рµ РІС…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ
     using Board = std::array<std::array<int, 9>, 9>;
 
     Board board = { {
-        {{5, 5, 0, 0, 7, 0, 0, 0, 0}},  // две 5 в первой строке
-        // ... остальное не важно
+        {{5, 5, 0, 0, 7, 0, 0, 0, 0}},  // РґРІРµ 5 РІ РїРµСЂРІРѕР№ СЃС‚СЂРѕРєРµ
+        // ... РѕСЃС‚Р°Р»СЊРЅРѕРµ РЅРµ РІР°Р¶РЅРѕ
     } };
 
     SudokuSolver<9> solver(board);

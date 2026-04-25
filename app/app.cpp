@@ -7,7 +7,7 @@ int main() {
     using namespace ConsoleUtils;
 
     while (true) {
-        std::vector<std::string> mainMenu = { "Выбрать размер судоку", "Выход" };
+        std::vector<std::string> mainMenu = { "Выбрать размер судоку"};
         int choice = showMenu(mainMenu, "Главное меню");
 
         if (choice == 0) {

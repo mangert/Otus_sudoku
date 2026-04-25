@@ -1,0 +1,24 @@
+# ќсновные настройки
+PROJECT_NAME           = "Sudoku Solver"
+PROJECT_NUMBER         = 1.0
+OUTPUT_DIRECTORY       = docs/doxygen
+INPUT                  = include/ src/ app/ tests/
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h *.cpp
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = NO
+
+# ¬изуальные настройки
+GENERATE_LATEX         = NO
+GENERATE_HTML          = YES
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+FULL_SIDEBAR           = NO
+
+# язык
+OUTPUT_LANGUAGE        = Russian
+
+# ќпции дл€ C++
+OPTIMIZE_OUTPUT_FOR_C  = NO
+TYPEDEF_HIDES_STRUCT   = YES

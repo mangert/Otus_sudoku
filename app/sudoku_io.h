@@ -6,9 +6,21 @@
 #include <string>
 #include "sudoku/sudoku_solver.h"
 
+/**
+ * @brief Утилиты для ввода/вывода досок судоку
+ */
 namespace SudokuIO {
 
-    // Чтение доски из файла
+    /**
+     * @brief Чтение доски из текстового файла
+     * @tparam N размер доски (4, 9, 16...)
+     * @param filename имя файла
+     * @param board ссылка на доску, в которую будет прочитано содержимое
+     * @return true если чтение успешно, false в случае ошибки (файл не найден, неверный формат)
+     *
+     * Формат файла: N строк, в каждой строке N целых чисел, разделённых пробелами.
+     * Пустые клетки обозначаются 0.
+     */
     template<size_t N>
     bool readBoardFromFile(const std::string& filename, std::array<std::array<int, N>, N>& board) {
         std::ifstream file(filename);
@@ -28,7 +40,15 @@ namespace SudokuIO {
         return true;
     }
 
-    // Чтение доски из stdin
+    /**
+     * @brief Чтение доски из стандартного ввода (клавиатуры)
+     * @tparam N размер доски (4, 9, 16...)
+     * @param board ссылка на доску, в которую будет прочитано содержимое
+     * @return true если чтение успешно, false в случае неверного формата ввода
+     *
+     * Пользователю выводится приглашение ввести N строк по N чисел.
+     * Пустые клетки обозначаются 0.
+     */
     template<size_t N>
     bool readBoardFromStdin(std::array<std::array<int, N>, N>& board) {
         std::cout << "Enter " << N << " rows of " << N << " numbers (0 for empty):\n";
@@ -43,7 +63,16 @@ namespace SudokuIO {
         return true;
     }
 
-    // Вывод доски в консоль    
+    /**
+     * @brief Вывод доски в консоль с форматированием
+     * @tparam N размер доски (4, 9, 16...)
+     * @param board доска для вывода
+     *
+     * Вывод включает:
+     * - Вертикальные и горизонтальные разделители блоков (для наглядности)
+     * - Пустые клетки выводятся как " ."
+     * - Числа выводятся с шириной поля 2 символа
+     */
     template<size_t N>
     void printBoard(const std::array<std::array<int, N>, N>& board) {
         constexpr int block_size = static_cast<int>(constexpr_sqrt(N));
@@ -82,7 +111,15 @@ namespace SudokuIO {
         }
     }
 
-    // Запись доски в файл
+    /**
+     * @brief Запись доски в файл
+     * @tparam N размер доски (4, 9, 16...)
+     * @param filename имя файла для сохранения
+     * @param board доска для записи
+     * @return true если запись успешна, false если не удалось открыть файл
+     *
+     * Формат файла: N строк, в каждой строке N чисел, разделённых пробелами.
+     */
     template<size_t N>
     bool writeBoardToFile(const std::string& filename, const std::array<std::array<int, N>, N>& board) {
         std::ofstream file(filename);

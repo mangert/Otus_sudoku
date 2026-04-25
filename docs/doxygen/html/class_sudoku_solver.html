@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sudoku Solver: Шаблон класса SudokuSolver&lt; N &gt;</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Sudoku Solver<span id="projectnumber">&#160;1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('class_sudoku_solver.html','','class_sudoku_solver-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Шаблон класса SudokuSolver&lt; N &gt;<span class="mlabels"><span class="mlabel final">final</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Решатель судоку на основе алгоритма Dancing Links (точное покрытие).  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="sudoku__solver_8h_source.html">sudoku_solver.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
+Открытые типы</h2></td></tr>
+<tr class="memitem:aacfa41c992b0c2775df607550bfb6e66" id="r_aacfa41c992b0c2775df607550bfb6e66"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aacfa41c992b0c2775df607550bfb6e66">SolverError</a> { <a class="el" href="#aacfa41c992b0c2775df607550bfb6e66a82b61f6621772a2550a37960ac50f068">INVALID_CONSTRAINTS</a>
+, <a class="el" href="#aacfa41c992b0c2775df607550bfb6e66af5d98edadcf065043f0e89603db316e8">NO_SOLUTION</a>
+ }</td></tr>
+<tr class="memdesc:aacfa41c992b0c2775df607550bfb6e66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ошибки, которые может вернуть метод <a class="el" href="#a675189293ce1f1c633621d147a9d939d" title="Решает судоку с заданными начальными условиями">solve()</a>.  <a href="#aacfa41c992b0c2775df607550bfb6e66">Подробнее...</a><br /></td></tr>
+<tr class="memitem:a5f2c00d52988706f96e76cf48b445a12" id="r_a5f2c00d52988706f96e76cf48b445a12"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a5f2c00d52988706f96e76cf48b445a12">Board</a> = std::array&lt;std::array&lt;int, N&gt;, N&gt;</td></tr>
+<tr class="memdesc:a5f2c00d52988706f96e76cf48b445a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип доски: квадратная матрица N×N, 0 обозначает пустую клетку  <br /></td></tr>
+<tr class="memitem:ada63b1337610b88f7fa356039c6da9fe" id="r_ada63b1337610b88f7fa356039c6da9fe"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ada63b1337610b88f7fa356039c6da9fe">FixedCell</a> = std::tuple&lt;int, int, int&gt;</td></tr>
+<tr class="memdesc:ada63b1337610b88f7fa356039c6da9fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип ячейки с фиксированным значением: (строка, столбец, цифра).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a86b7699ce5f4ac42c6ea5f55ff92c286" id="r_a86b7699ce5f4ac42c6ea5f55ff92c286"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a86b7699ce5f4ac42c6ea5f55ff92c286">SudokuSolver</a> (const <a class="el" href="#a5f2c00d52988706f96e76cf48b445a12">Board</a> &amp;board)</td></tr>
+<tr class="memdesc:a86b7699ce5f4ac42c6ea5f55ff92c286"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструктор от полной доски  <br /></td></tr>
+<tr class="memitem:a0e439b83933028e0a636c17159e0995e" id="r_a0e439b83933028e0a636c17159e0995e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0e439b83933028e0a636c17159e0995e">SudokuSolver</a> (const std::vector&lt; <a class="el" href="#ada63b1337610b88f7fa356039c6da9fe">FixedCell</a> &gt; &amp;fixed_cells)</td></tr>
+<tr class="memdesc:a0e439b83933028e0a636c17159e0995e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструктор от списка фиксированных клеток  <br /></td></tr>
+<tr class="memitem:a5f48b19335f3eb6195a3cf2003bf5eac" id="r_a5f48b19335f3eb6195a3cf2003bf5eac"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5f48b19335f3eb6195a3cf2003bf5eac">SudokuSolver</a> (const <a class="el" href="class_sudoku_solver.html">SudokuSolver</a> &amp;)=default</td></tr>
+<tr class="memitem:a57761732116c93f1eff68644167e921c" id="r_a57761732116c93f1eff68644167e921c"><td class="memItemLeft"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a57761732116c93f1eff68644167e921c">operator=</a> (const <a class="el" href="class_sudoku_solver.html">SudokuSolver</a> &amp;)=default</td></tr>
+<tr class="memitem:ac9e1a5d463ba9841a127eebebfe13a1c" id="r_ac9e1a5d463ba9841a127eebebfe13a1c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac9e1a5d463ba9841a127eebebfe13a1c">SudokuSolver</a> (<a class="el" href="class_sudoku_solver.html">SudokuSolver</a> &amp;&amp;)=default</td></tr>
+<tr class="memitem:af17cb2798a994d384489c20a38bf2029" id="r_af17cb2798a994d384489c20a38bf2029"><td class="memItemLeft"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af17cb2798a994d384489c20a38bf2029">operator=</a> (<a class="el" href="class_sudoku_solver.html">SudokuSolver</a> &amp;&amp;)=default</td></tr>
+<tr class="memitem:adde98fe4be8066638164882772278d46" id="r_adde98fe4be8066638164882772278d46"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adde98fe4be8066638164882772278d46">~SudokuSolver</a> ()=default</td></tr>
+<tr class="memitem:a675189293ce1f1c633621d147a9d939d" id="r_a675189293ce1f1c633621d147a9d939d"><td class="memItemLeft">std::expected&lt; <a class="el" href="#a5f2c00d52988706f96e76cf48b445a12">Board</a>, <a class="el" href="#aacfa41c992b0c2775df607550bfb6e66">SolverError</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a675189293ce1f1c633621d147a9d939d">solve</a> () const</td></tr>
+<tr class="memdesc:a675189293ce1f1c633621d147a9d939d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Решает судоку с заданными начальными условиями  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Подробное описание</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;size_t N&gt;<br />
+requires <a class="el" href="concept_valid_sudoku_size.html">ValidSudokuSize</a>&lt;N&gt;<br />
+class SudokuSolver&lt; N &gt;</div><p>Решатель судоку на основе алгоритма Dancing Links (точное покрытие). </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">N</td><td>размер стороны судоку (должен быть полным квадратом) </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Определения типов</h2>
+<a id="a5f2c00d52988706f96e76cf48b445a12" name="a5f2c00d52988706f96e76cf48b445a12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f2c00d52988706f96e76cf48b445a12">&#9670;&#160;</a></span>Board</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;::Board = std::array&lt;std::array&lt;int, N&gt;, N&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Тип доски: квадратная матрица N×N, 0 обозначает пустую клетку </p>
+
+</div>
+</div>
+<a id="ada63b1337610b88f7fa356039c6da9fe" name="ada63b1337610b88f7fa356039c6da9fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada63b1337610b88f7fa356039c6da9fe">&#9670;&#160;</a></span>FixedCell</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;::FixedCell = std::tuple&lt;int, int, int&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Тип ячейки с фиксированным значением: (строка, столбец, цифра). </p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Перечисления</h2>
+<a id="aacfa41c992b0c2775df607550bfb6e66" name="aacfa41c992b0c2775df607550bfb6e66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacfa41c992b0c2775df607550bfb6e66">&#9670;&#160;</a></span>SolverError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#aacfa41c992b0c2775df607550bfb6e66">SudokuSolver::SolverError</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ошибки, которые может вернуть метод <a class="el" href="#a675189293ce1f1c633621d147a9d939d" title="Решает судоку с заданными начальными условиями">solve()</a>. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Элементы перечислений</th></tr><tr><td class="fieldname"><a id="aacfa41c992b0c2775df607550bfb6e66a82b61f6621772a2550a37960ac50f068" name="aacfa41c992b0c2775df607550bfb6e66a82b61f6621772a2550a37960ac50f068"></a>INVALID_CONSTRAINTS&#160;</td><td class="fielddoc"><p>Начальные данные противоречивы </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aacfa41c992b0c2775df607550bfb6e66af5d98edadcf065043f0e89603db316e8" name="aacfa41c992b0c2775df607550bfb6e66af5d98edadcf065043f0e89603db316e8"></a>NO_SOLUTION&#160;</td><td class="fielddoc"><p>Решения не существует </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Конструктор(ы)</h2>
+<a id="a86b7699ce5f4ac42c6ea5f55ff92c286" name="a86b7699ce5f4ac42c6ea5f55ff92c286"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86b7699ce5f4ac42c6ea5f55ff92c286">&#9670;&#160;</a></span>SudokuSolver() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;::SudokuSolver </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a5f2c00d52988706f96e76cf48b445a12">Board</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>board</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Конструктор от полной доски </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">board</td><td>начальная доска (0 — пустая клетка) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0e439b83933028e0a636c17159e0995e" name="a0e439b83933028e0a636c17159e0995e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e439b83933028e0a636c17159e0995e">&#9670;&#160;</a></span>SudokuSolver() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;::SudokuSolver </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="#ada63b1337610b88f7fa356039c6da9fe">FixedCell</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>fixed_cells</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Конструктор от списка фиксированных клеток </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fixed_cells</td><td>список кортежей (row, col, digit) с начальными значениями </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5f48b19335f3eb6195a3cf2003bf5eac" name="a5f48b19335f3eb6195a3cf2003bf5eac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f48b19335f3eb6195a3cf2003bf5eac">&#9670;&#160;</a></span>SudokuSolver() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;::SudokuSolver </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac9e1a5d463ba9841a127eebebfe13a1c" name="ac9e1a5d463ba9841a127eebebfe13a1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9e1a5d463ba9841a127eebebfe13a1c">&#9670;&#160;</a></span>SudokuSolver() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;::SudokuSolver </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adde98fe4be8066638164882772278d46" name="adde98fe4be8066638164882772278d46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adde98fe4be8066638164882772278d46">&#9670;&#160;</a></span>~SudokuSolver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;::~<a class="el" href="class_sudoku_solver.html">SudokuSolver</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Методы</h2>
+<a id="a57761732116c93f1eff68644167e921c" name="a57761732116c93f1eff68644167e921c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57761732116c93f1eff68644167e921c">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a> &amp; <a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af17cb2798a994d384489c20a38bf2029" name="af17cb2798a994d384489c20a38bf2029"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af17cb2798a994d384489c20a38bf2029">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a> &amp; <a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a675189293ce1f1c633621d147a9d939d" name="a675189293ce1f1c633621d147a9d939d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a675189293ce1f1c633621d147a9d939d">&#9670;&#160;</a></span>solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::expected&lt; typename <a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;<a class="el" href="#a5f2c00d52988706f96e76cf48b445a12">::Board</a>, typename <a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;<a class="el" href="#aacfa41c992b0c2775df607550bfb6e66">::SolverError</a> &gt; <a class="el" href="class_sudoku_solver.html">SudokuSolver</a>&lt; N &gt;::solve </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Решает судоку с заданными начальными условиями </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Если решение найдено — доска <a class="el" href="#a5f2c00d52988706f96e76cf48b445a12" title="Тип доски: квадратная матрица N×N, 0 обозначает пустую клетку">Board</a>, иначе <a class="el" href="#aacfa41c992b0c2775df607550bfb6e66" title="Ошибки, которые может вернуть метод solve().">SolverError</a> </dd></dl>
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>include/sudoku/<a class="el" href="sudoku__solver_8h_source.html">sudoku_solver.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="class_sudoku_solver.html">SudokuSolver</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>
