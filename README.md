@@ -15,6 +15,8 @@
 
 ## Документация
 
+[Техническое задание](docs/SRC.md)
+
 [Сгенерированная документация API](https://mangert.github.io/Otus_sudoku_docs/index.html)
 
 ## Сборка

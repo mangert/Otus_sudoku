@@ -239,7 +239,7 @@ int main() {
     runner.addTest("Easy Sudoku 9x9 with cells", test_easy9_sudoku_cells);
     runner.addTest("Medium Sudoku 9x9", test_medium9_sudoku);
     runner.addTest("Al Escargot Sudoku 9x9", test_Escargot_sudoku);
-    runner.addTest("Sudoku 16x16", test_sudoku16);
+    runner.addTest("Sudoku 16x16", test_sudoku16); 
     runner.addTest("No solution Sudoku", test_4x4_no_solution);
     runner.addTest("Invalid Sudoku", test_invalid_sudoku);
 
