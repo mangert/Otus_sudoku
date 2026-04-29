@@ -27,9 +27,10 @@ namespace ConsoleUtils {
             if (choice == 0) {
                 return -1;  // сигнал выхода
             }
-            if (choice >= 1 && choice <= static_cast<int>(options.size())) {
+            if (choice >= 1 && choice <= static_cast<int>(options.size())) {                
                 return choice - 1;
             }
+            ConsoleUtils::clearScreen();
             std::cout << "Ошибка: выберите 0 (выход) или 1-" << options.size() << ".\n";
         }
     }
