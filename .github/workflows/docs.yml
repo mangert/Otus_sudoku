@@ -1,30 +1,32 @@
-name: Generate and Deploy Documentation
+name: Generate and Deploy Doxygen Documentation
 
 on:
   push:
-    branches: [ "master" ] 
+    # Запускаем при пушах в основную ветку, можно указать свою, например, 'main' или 'master'
+    branches: [ "master" ]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4 # Скачиваем последнюю версию кода
+      # 1. Забираем код из репозитория
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Generate Doxygen Documentation
-      uses: langroodi/doxygenize@v1 # Запускаем сборку Doxygen
-      with:
-        doxygenconf: Doxyfile
-        # Указываем, что результат нужно выложить в ветку gh-pages
-        ghpagesbranch: gh-pages
-        # Корневая папка GitHub Pages в этой ветке
-        ghpagesdir: ./
-        # Папка с HTML-файлами, которую сгенерирует doxygen
-        htmloutput: ./html_output/
+      # 2. Устанавливаем doxygen и graphviz (для красивых диаграмм)
+      - name: Install Doxygen
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
 
-    # Опционально: эта часть сама сделает деплой из ветки gh-pages
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./html_output
+      # 3. Генерируем документацию с помощью Doxygen
+      - name: Run Doxygen
+        run: doxygen Doxyfile
+
+      # 4. Деплоим содержимое папки docs/doxygen/html/ в ветку gh-pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Публикуем то, что сгенерировал doxygen
+          publish_dir: ./docs/doxygen/html
+          # Создаем или перезаписываем ветку gh-pages
+          force_orphan: true
