@@ -18,6 +18,7 @@ Makefile
 .idea/
 
 #Test data
-
+#документация
+docs/doxygen/
 #черновики и вспомогательные файлы
 data.json

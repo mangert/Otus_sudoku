@@ -15,7 +15,7 @@
 
 ## Документация
 
-[Сгенерированная документация API](docs/doxygen/html/index.html)
+[Сгенерированная документация API](https://mangert.github.io/Otus_sudoku_docs/index.html)
 
 ## Сборка
 
