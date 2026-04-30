@@ -5,16 +5,16 @@
 ## Структура проекта
 ``` 
  include/ — заголовочные файлы
-   ├──dancing_links/` — матрица Dancing Links
-   └──sudoku/` — решатель судоку
+   ├──dancing_links/ — матрица Dancing Links
+   └──sudoku/ — решатель судоку
  
  src/ — исходные файлы
-   ├──dancing_links/` — реализация DLX
-   └──main.cpp` — краткая информация о проекте
+   ├──dancing_links/ — реализация DLX
+   └──main.cpp — краткая информация о проекте
  
- app/ — консольное приложение ([подробнее](app/README.md))
+ app/ — консольное приложение ```([подробнее](app/README.md))```
  
- tests/ — юнит-тесты ([подробнее](tests/README.md))
+ tests/ — юнит-тесты ```([подробнее](tests/README.md))```
  
  docs/ — файлы с документацией и примеры
 
