@@ -21,7 +21,7 @@ bool test_easy4_sudoku() {
     auto end = std::chrono::high_resolution_clock::now();
 
     auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-    std::cout << "Time: " << ns << " us\n";
+    std::cout << "Time: " << ns << " ns\n";
 
     ASSERT_TRUE(result.has_value());
 
@@ -54,7 +54,7 @@ bool test_easy9_sudoku() {
     auto end = std::chrono::high_resolution_clock::now();
 
     auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-    std::cout << "Time: " << ns << " us\n";
+    std::cout << "Time: " << ns << " ns\n";
 
     ASSERT_TRUE(result.has_value());
 
@@ -79,7 +79,7 @@ bool test_easy9_sudoku_cells() {
     auto end = std::chrono::high_resolution_clock::now();
 
     auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-    std::cout << "Time: " << ns << " us\n";
+    std::cout << "Time: " << ns << " ns\n";
 
     ASSERT_TRUE(result.has_value());
 
@@ -113,7 +113,7 @@ bool test_medium9_sudoku() {
     auto end = std::chrono::high_resolution_clock::now();
     
     auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-    std::cout << "Time: " << ns << " us\n";
+    std::cout << "Time: " << ns << " ns\n";
     
     ASSERT_TRUE(result.has_value());
     
@@ -146,7 +146,7 @@ bool test_Escargot_sudoku() {
     auto end = std::chrono::high_resolution_clock::now();
 
     auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-    std::cout << "Time: " << ns << " us\n";
+    std::cout << "Time: " << ns << " ns\n";
 
     ASSERT_TRUE(result.has_value());
 
@@ -187,7 +187,7 @@ bool test_sudoku16() {
     auto end = std::chrono::high_resolution_clock::now();
 
     auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-    std::cout << "Time: " << ns << " us\n";
+    std::cout << "Time: " << ns << " ns\n";
 
     ASSERT_TRUE(result.has_value());
 
