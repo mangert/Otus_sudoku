@@ -18,7 +18,10 @@ Makefile
 .idea/
 
 #Test data
+
 #документация
 docs/doxygen/
+docs/Презентация.pptx
+*.pptx
 #черновики и вспомогательные файлы
 data.json
