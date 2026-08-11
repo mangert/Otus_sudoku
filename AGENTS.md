@@ -21,3 +21,4 @@
 @.codex/rules/testing_policy.md
 @.codex/rules/architecture_decisions.md
 @.codex/rules/logging.md
+@.codex/rules/error_handling.md
