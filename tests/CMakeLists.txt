@@ -1,4 +1,4 @@
-# Тесты для DancingLinksMatrix
+# РўРµСЃС‚С‹ РґР»СЏ DancingLinksMatrix
 add_executable(test_dancing_links
     dancing_links/test_dancing_links.cpp
  )
@@ -11,7 +11,7 @@ target_include_directories(test_dancing_links PRIVATE
     ${CMAKE_SOURCE_DIR}/include
 )
 
-# Тесты для SudokuSolver
+# РўРµСЃС‚С‹ РґР»СЏ SudokuSolver
 add_executable(test_sudoku
     sudoku/test_sudoku.cpp
  )
@@ -24,13 +24,23 @@ target_include_directories(test_sudoku PRIVATE
     ${CMAKE_SOURCE_DIR}/include
 )
 
-# Добавляем тесты в CTest
+# РўРµСЃС‚С‹ JSON-РІРІРѕРґР°/РІС‹РІРѕРґР° РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ
+add_executable(test_sudoku_json_io
+    app/test_sudoku_json_io.cpp
+)
+
+target_include_directories(test_sudoku_json_io PRIVATE
+    ${CMAKE_SOURCE_DIR}/app
+)
+
+# Р”РѕР±Р°РІР»СЏРµРј С‚РµСЃС‚С‹ РІ CTest
 add_test(NAME DancingLinksTests COMMAND test_dancing_links)
 add_test(NAME SudokuSolverTests COMMAND test_sudoku)
+add_test(NAME SudokuJsonIoTests COMMAND test_sudoku_json_io)
 
-# Для Windows: консольные приложения
+# Р”Р»СЏ Windows: РєРѕРЅСЃРѕР»СЊРЅС‹Рµ РїСЂРёР»РѕР¶РµРЅРёСЏ
 if(WIN32)
-    set_target_properties(test_dancing_links test_sudoku PROPERTIES
+    set_target_properties(test_dancing_links test_sudoku test_sudoku_json_io PROPERTIES
         LINK_FLAGS "/SUBSYSTEM:CONSOLE"
     )
 endif()

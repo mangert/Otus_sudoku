@@ -1,5 +1,6 @@
-﻿#include "sudoku_ui.h"
+#include "sudoku_ui.h"
 #include "sudoku_io.h"
+#include "sudoku_json_io.h"
 #include "console_utils.h"
 #include <iostream>
 #include <expected>
@@ -17,11 +18,41 @@ std::string errorToString(typename SudokuSolver<N>::SolverError error) {
 }
 
 template<size_t N>
+std::string jsonErrorToString(const SudokuIO::JsonIoError& error) {
+    using Code = SudokuIO::JsonIoError::Code;
+    switch (error.code) {
+    case Code::FILE_OPEN_FAILED:
+        return "не удалось открыть файл";
+    case Code::FILE_READ_FAILED:
+        return "не удалось прочитать файл";
+    case Code::INVALID_SYNTAX:
+        return "нарушен синтаксис JSON";
+    case Code::INVALID_SCHEMA:
+        return "JSON не соответствует схеме size + board";
+    case Code::SIZE_MISMATCH:
+        return "размер в JSON (" + std::to_string(error.actual_size) +
+            ") не совпадает с выбранным размером (" + std::to_string(N) + ")";
+    case Code::INVALID_BOARD_SHAPE:
+        return "board должен содержать " + std::to_string(N) +
+            " строк по " + std::to_string(N) + " значений";
+    case Code::INVALID_CELL_VALUE:
+        return "значения клеток должны быть целыми числами от 0 до " + std::to_string(N);
+    case Code::FILE_WRITE_FAILED:
+        return "не удалось записать файл";
+    }
+    return "неизвестная ошибка JSON";
+}
+
+template<size_t N>
 void processSudoku() {
     using Board = std::array<std::array<int, N>, N>;
 
     while (true) {
-        std::vector<std::string> sourceMenu = { "Загрузить из файла", "Ввести с клавиатуры" };
+        std::vector<std::string> sourceMenu = {
+            "Загрузить из TXT-файла",
+            "Загрузить из JSON-файла",
+            "Ввести с клавиатуры"
+        };
         int choice = ConsoleUtils::showMenu(sourceMenu, "Выберите источник данных");
 
         if (choice == -1) {  // выход
@@ -29,19 +60,31 @@ void processSudoku() {
             return;
         }
 
-        Board board;
+        Board board{};
         std::string filename;
 
-        if (choice == 0) {  // файл
-            filename = ConsoleUtils::askString("Введите имя файла: ");
+        if (choice == 0) {  // TXT-файл
+            filename = ConsoleUtils::askString("Введите имя TXT-файла: ");
             if (!SudokuIO::readBoardFromFile<N>(filename, board)) {
-                std::cout << "Ошибка загрузки файла.\n";
+                std::cout << "Ошибка загрузки TXT-файла.\n";
                 continue;
             }
             ConsoleUtils::clearScreen();
-            std::cout << "Загружено из файла: " << filename << "\n";
+            std::cout << "Загружено из TXT-файла: " << filename << "\n";
         }
-        else if (choice == 1) {  // клавиатура
+        else if (choice == 1) {  // JSON-файл
+            filename = ConsoleUtils::askString("Введите имя JSON-файла: ");
+            auto json_result = SudokuIO::readBoardFromJsonFile<N>(filename);
+            if (!json_result.has_value()) {
+                std::cout << "Ошибка загрузки JSON-файла: "
+                    << jsonErrorToString<N>(json_result.error()) << ".\n";
+                continue;
+            }
+            board = json_result.value();
+            ConsoleUtils::clearScreen();
+            std::cout << "Загружено из JSON-файла: " << filename << "\n";
+        }
+        else if (choice == 2) {  // клавиатура
             ConsoleUtils::clearScreen();
             std::cout << "Ввод с клавиатуры...\n";
             std::cout << "Введите " << N << " строк по " << N << " чисел (0 для пустых):\n";
@@ -76,25 +119,38 @@ void processSudoku() {
         SudokuIO::printBoard(result.value());
 
         // Меню после решения
-        std::vector<std::string> postMenu = { "Сохранить в файл", "Решить другую" };
+        std::vector<std::string> postMenu = {
+            "Сохранить в TXT-файл",
+            "Сохранить в JSON-файл",
+            "Решить другую"
+        };
         int postChoice = ConsoleUtils::showMenu(postMenu, "Что дальше?");
 
         if (postChoice == -1) {  // выход
             ConsoleUtils::clearScreen();
             return;
         }
-        else if (postChoice == 0) {  // сохранить
-            std::string saveFilename = ConsoleUtils::askString("Имя файла для сохранения: ");
+        else if (postChoice == 0) {  // сохранить в TXT
+            std::string saveFilename = ConsoleUtils::askString("Имя TXT-файла для сохранения: ");
             if (SudokuIO::writeBoardToFile(saveFilename, result.value())) {
-                std::cout << "Сохранено.\n";
+                std::cout << "Сохранено в TXT-файл.\n";
             }
             else {
-                std::cout << "Ошибка сохранения.\n";
+                std::cout << "Ошибка сохранения TXT-файла.\n";
             }
-            // после сохранения остаёмся в меню после решения
-            // (не выходим, чтобы пользователь мог выбрать "Решить другую")
         }
-        else if (postChoice == 1) {  // решить другую
+        else if (postChoice == 1) {  // сохранить в JSON
+            std::string saveFilename = ConsoleUtils::askString("Имя JSON-файла для сохранения: ");
+            auto write_result = SudokuIO::writeBoardToJsonFile(saveFilename, result.value());
+            if (write_result.has_value()) {
+                std::cout << "Сохранено в JSON-файл.\n";
+            }
+            else {
+                std::cout << "Ошибка сохранения JSON-файла: "
+                    << jsonErrorToString<N>(write_result.error()) << ".\n";
+            }
+        }
+        else if (postChoice == 2) {  // решить другую
             ConsoleUtils::clearScreen();
             continue;
         }
